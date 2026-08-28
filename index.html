@@ -33,7 +33,7 @@
         <span class="font-bold text-lg tracking-tight bg-gradient-to-r from-zinc-100 to-zinc-400 bg-clip-text text-transparent">
           VibeCoder Engine
         </span>
-        <span class="text-xs px-2 py-0.5 rounded bg-zinc-800 text-zinc-400 border border-zinc-700 font-mono">gh-pages</span>
+        <span id="version-badge" class="text-xs px-2 py-0.5 rounded bg-zinc-800 text-emerald-400 border border-zinc-700 font-mono transition-all">v1.0.0</span>
       </div>
       <nav class="flex space-x-1 bg-zinc-950 p-1 rounded-lg border border-zinc-800" id="nav-tabs">
         <button onclick="switchTab('greenfield')" id="tab-greenfield" class="px-4 py-1.5 rounded-md text-xs font-medium transition-all bg-emerald-500 text-zinc-950 font-semibold shadow">
@@ -168,6 +168,22 @@
   </main>
 
   <script>
+    // Version State & Generation Counter
+    let major = 1;
+    let minor = 0;
+    let patch = 0;
+
+    function incrementVersion() {
+      patch += 1;
+      const verString = `v${major}.${minor}.${patch}`;
+      const badge = document.getElementById('version-badge');
+      badge.textContent = verString;
+      badge.classList.add('bg-emerald-400', 'text-zinc-950');
+      setTimeout(() => {
+        badge.classList.remove('bg-emerald-400', 'text-zinc-950');
+      }, 300);
+    }
+
     const PROMPTS = {
       g1_1: `Ask me one question at a time so we can develop a thorough, step-by-step spec for this idea. Each question should build on my previous answers, and our end goal is to have a detailed specification I can hand off to a developer. Let's do this iteratively and dig into every relevant detail. Remember, only one question at a time. Here's the idea: <IDEA>`,
       
@@ -212,7 +228,8 @@ RULES:
 
     function copyToClipboard(text) {
       navigator.clipboard.writeText(text);
-      alert('Prompt copied to clipboard!');
+      incrementVersion();
+      alert(`Prompt copied! Version updated to v${major}.${minor}.${patch}`);
     }
 
     function switchTab(tab) {
