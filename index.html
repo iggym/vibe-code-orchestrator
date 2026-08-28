@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vibe Coding Engine & Stack Templates</title>
+  <title>Vibe Coding Engine & Motion System Templates</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -33,26 +33,29 @@
         <span class="font-bold text-lg tracking-tight bg-gradient-to-r from-zinc-100 to-zinc-400 bg-clip-text text-transparent">
           VibeCoder Engine
         </span>
-        <span id="version-badge" class="text-xs px-2 py-0.5 rounded bg-zinc-800 text-emerald-400 border border-zinc-700 font-mono transition-all">v1.1.0</span>
+        <span id="version-badge" class="text-xs px-2 py-0.5 rounded bg-zinc-800 text-emerald-400 border border-zinc-700 font-mono transition-all">v1.2.0</span>
       </div>
       <div class="flex items-center space-x-3">
         <button onclick="toggleModal('modal-howto')" class="text-xs px-3 py-1.5 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-zinc-200 border border-zinc-700 font-medium transition-all flex items-center space-x-1.5">
           <span>📖</span> <span>How-To Guide</span>
         </button>
         <nav class="flex space-x-1 bg-zinc-950 p-1 rounded-lg border border-zinc-800" id="nav-tabs">
-          <button onclick="switchTab('greenfield')" id="tab-greenfield" class="px-4 py-1.5 rounded-md text-xs font-medium transition-all bg-emerald-500 text-zinc-950 font-semibold shadow">
-            Greenfield Pipeline
+          <button onclick="switchTab('greenfield')" id="tab-greenfield" class="px-3 py-1.5 rounded-md text-xs font-medium transition-all text-zinc-400 hover:text-zinc-200">
+            Greenfield
           </button>
-          <button onclick="switchTab('brownfield')" id="tab-brownfield" class="px-4 py-1.5 rounded-md text-xs font-medium transition-all text-zinc-400 hover:text-zinc-200">
-            Brownfield Pipeline
+          <button onclick="switchTab('brownfield')" id="tab-brownfield" class="px-3 py-1.5 rounded-md text-xs font-medium transition-all text-zinc-400 hover:text-zinc-200">
+            Brownfield
           </button>
-          <button onclick="switchTab('stack-templates')" id="tab-stack-templates" class="px-4 py-1.5 rounded-md text-xs font-medium transition-all text-zinc-400 hover:text-zinc-200">
-            Stack Templates
+          <button onclick="switchTab('stack-templates')" id="tab-stack-templates" class="px-3 py-1.5 rounded-md text-xs font-medium transition-all text-zinc-400 hover:text-zinc-200">
+            System Stacks
           </button>
-          <button onclick="switchTab('starter-projects')" id="tab-starter-projects" class="px-4 py-1.5 rounded-md text-xs font-medium transition-all text-zinc-400 hover:text-zinc-200">
+          <button onclick="switchTab('motion-templates')" id="tab-motion-templates" class="px-3 py-1.5 rounded-md text-xs font-medium transition-all bg-emerald-500 text-zinc-950 font-semibold shadow">
+            Motion & Interactive Apps
+          </button>
+          <button onclick="switchTab('starter-projects')" id="tab-starter-projects" class="px-3 py-1.5 rounded-md text-xs font-medium transition-all text-zinc-400 hover:text-zinc-200">
             Starter Projects
           </button>
-          <button onclick="switchTab('library')" id="tab-library" class="px-4 py-1.5 rounded-md text-xs font-medium transition-all text-zinc-400 hover:text-zinc-200">
+          <button onclick="switchTab('library')" id="tab-library" class="px-3 py-1.5 rounded-md text-xs font-medium transition-all text-zinc-400 hover:text-zinc-200">
             Prompt Vault
           </button>
         </nav>
@@ -62,7 +65,7 @@
 
   <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
 
-    <section id="view-greenfield" class="space-y-6">
+    <section id="view-greenfield" class="hidden space-y-6">
       <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-6">
         <h1 class="text-xl font-bold text-zinc-100 mb-2">Greenfield Workflow Pipeline</h1>
         <p class="text-sm text-zinc-400">Spec generation, prompt planning, and TDD execution loops.</p>
@@ -87,7 +90,7 @@
     <section id="view-brownfield" class="hidden space-y-6">
       <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-6">
         <h1 class="text-xl font-bold text-zinc-100 mb-2">Brownfield Iteration Pipeline</h1>
-        <p class="text-sm text-zinc-400">Context packing, code reviews, issue extraction, and missing test suits.</p>
+        <p class="text-sm text-zinc-400">Context packing, code reviews, issue extraction, and missing test suites.</p>
         <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mt-6">
           <button onclick="selectBStep(1)" id="bstep-btn-1" class="text-left p-4 rounded-lg border border-emerald-500/50 bg-emerald-950/20 transition-all">
             <div class="text-xs font-mono text-emerald-400 font-semibold mb-1">01 • BUNDLE</div>
@@ -112,11 +115,23 @@
 
     <section id="view-stack-templates" class="hidden space-y-6">
       <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-6">
-        <h1 class="text-xl font-bold text-zinc-100 mb-2">Custom Tech Stack System Prompts</h1>
-        <p class="text-sm text-zinc-400">Pre-configured operational prompts strictly constrained to single-file client implementations, edge platforms, and animation engines.</p>
+        <h1 class="text-xl font-bold text-zinc-100 mb-2">Core Tech Stack System Prompts</h1>
+        <p class="text-sm text-zinc-400">Pre-configured operational prompts strictly constrained to single-file client implementations, edge platforms, and local browser state.</p>
       </div>
-
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="stack-templates-grid"></div>
+    </section>
+
+    <section id="view-motion-templates" class="space-y-6">
+      <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-6">
+        <div class="flex justify-between items-start">
+          <div>
+            <h1 class="text-xl font-bold text-zinc-100 mb-2">Interactive & Motion App Templates</h1>
+            <p class="text-sm text-zinc-400">Production-ready prompt blueprints for orchestrating high-performance animations, 3D canvases, micro-interactions, and motion tools.</p>
+          </div>
+          <span class="text-xs font-mono px-3 py-1 rounded-full bg-emerald-950 text-emerald-400 border border-emerald-800">4 Motion Engines</span>
+        </div>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="motion-templates-grid"></div>
     </section>
 
     <section id="view-starter-projects" class="hidden space-y-6">
@@ -190,40 +205,24 @@
         <div class="flex items-start space-x-3 bg-zinc-950 p-3.5 rounded-lg border border-zinc-850">
           <span class="bg-emerald-500 text-zinc-950 font-mono font-bold px-2 py-0.5 rounded text-xs">01</span>
           <div>
-            <strong class="text-zinc-100 block text-sm mb-1">Pick a Workflow</strong>
-            Choose <strong>Greenfield</strong> for starting new applications from scratch, or <strong>Brownfield</strong> for auditing/fixing existing codebases.
+            <strong class="text-zinc-100 block text-sm mb-1">Select Interactive Stack</strong>
+            Select system templates from <strong>System Stacks</strong> or <strong>Motion & Interactive Apps</strong> depending on whether you're building state utilities or animated canvas interfaces.
           </div>
         </div>
 
         <div class="flex items-start space-x-3 bg-zinc-950 p-3.5 rounded-lg border border-zinc-850">
           <span class="bg-emerald-500 text-zinc-950 font-mono font-bold px-2 py-0.5 rounded text-xs">02</span>
           <div>
-            <strong class="text-zinc-100 block text-sm mb-1">Run Interactive Brainstorming</strong>
-            Copy Step 01 Greenfield prompt into your LLM chat (e.g. Gemini/Claude). Answer its questions one by one until it produces a complete <code>spec.md</code>.
+            <strong class="text-zinc-100 block text-sm mb-1">Zero-Dependency Single-File Execution</strong>
+            All animation templates load GSAP, Three.js, Anime.js, or Theatre.js strictly via CDN script tags with modern ES module setups.
           </div>
         </div>
 
         <div class="flex items-start space-x-3 bg-zinc-950 p-3.5 rounded-lg border border-zinc-850">
           <span class="bg-emerald-500 text-zinc-950 font-mono font-bold px-2 py-0.5 rounded text-xs">03</span>
           <div>
-            <strong class="text-zinc-100 block text-sm mb-1">Generate TDD Execution Blueprint</strong>
-            Feed <code>spec.md</code> into a reasoning model (o1, R1, Groq) using the Step 02 prompt. It outputs a <code>prompt_plan.md</code> and <code>todo.md</code>.
-          </div>
-        </div>
-
-        <div class="flex items-start space-x-3 bg-zinc-950 p-3.5 rounded-lg border border-zinc-850">
-          <span class="bg-emerald-500 text-zinc-950 font-mono font-bold px-2 py-0.5 rounded text-xs">04</span>
-          <div>
-            <strong class="text-zinc-100 block text-sm mb-1">Apply Stack System Constraints</strong>
-            Before invoking code generation, attach a system template from the <strong>Stack Templates</strong> tab to lock the model into zero-dependency, single-file, edge, or animation rules.
-          </div>
-        </div>
-
-        <div class="flex items-start space-x-3 bg-zinc-950 p-3.5 rounded-lg border border-zinc-850">
-          <span class="bg-emerald-500 text-zinc-950 font-mono font-bold px-2 py-0.5 rounded text-xs">05</span>
-          <div>
-            <strong class="text-zinc-100 block text-sm mb-1">Iterate & Deploy Directly</strong>
-            Execute prompts step-by-step. Open <code>index.html</code> directly in your browser or deploy directly to GitHub Pages / Cloudflare Workers!
+            <strong class="text-zinc-100 block text-sm mb-1">Execute & Inspect Immediately</strong>
+            Copy templates to your LLM context window. Save generated single-file outputs directly as <code>index.html</code> and run in browser locally or on Cloudflare Pages.
           </div>
         </div>
       </div>
@@ -235,9 +234,9 @@
   </div>
 
   <script>
-    // Version State & Generation Counter (Initialized to v1.1.0 reflecting addition of animation templates)
+    // Versioning Management (Incrementing to v1.2.0 for dedicated Motion Engine Suite)
     let major = 1;
-    let minor = 1;
+    let minor = 2;
     let patch = 0;
 
     function incrementVersion() {
@@ -252,95 +251,57 @@
     }
 
     function toggleModal(id) {
-      const modal = document.getElementById(id);
-      modal.classList.toggle('hidden');
+      document.getElementById(id).classList.toggle('hidden');
     }
 
     const STARTERS = {
-      p1: `Create a single-file Markdown Executive Dashboard using vanilla HTML, CSS, and JS with zero dependencies.
-RULES:
-1. Provide a drop zone for uploading or pasting markdown content.
-2. Automatically parse tables, task lists, and metric headers (# Key Performance Metrics).
-3. Render visual charts using native SVG/HTML progress meters and a interactive Kanban task board view.
-4. Provide dark mode by default and maintain zero npm build steps.`,
-
-      p2: `Create a Cloudflare Worker backend script that accepts multipart image uploads and extracts vision metadata using the Google Gemini REST API.
-RULES:
-1. Pure ES module format for Cloudflare Workers.
-2. Convert uploaded image payload to base64 and execute a direct REST call to gemini-1.5-flash.
-3. Handle rate limits with retry backoff and return clean JSON response containing tags, summary, and color analysis.`,
-
-      p3: `Create a single-file Web Analytics Beacon and Dashboard connected to Supabase via CDN script.
-RULES:
-1. Client tracker script (under 1KB) sending page view, referrer, and performance timing to Supabase via window.supabase client.
-2. Real-time dashboard interface rendering pageview trends and active session counts.
-3. Include SQL schema setup instructions for Supabase Row Level Security (RLS).`
+      p1: `Create a single-file Markdown Executive Dashboard using vanilla HTML, CSS, and JS with zero dependencies.\nRULES:\n1. Drop zone for markdown.\n2. Auto-parse headers & tables.\n3. Render native HTML progress indicators and Kanban boards.`,
+      p2: `Create a Cloudflare Worker backend script that accepts image uploads and extracts metadata via Gemini REST API.\nRULES:\n1. Standalone ES module.\n2. Convert image to base64 for gemini-1.5-flash.\n3. Return clean JSON with tags and analysis.`,
+      p3: `Create a single-file Web Analytics Beacon and Dashboard connected to Supabase via CDN script.\nRULES:\n1. Lightweight tracking beacon script.\n2. Dashboard rendering real-time metrics.\n3. Provide setup SQL schema.`
     };
 
     const PROMPTS = {
       g1_1: `Ask me one question at a time so we can develop a thorough, step-by-step spec for this idea. Each question should build on my previous answers, and our end goal is to have a detailed specification I can hand off to a developer. Let's do this iteratively and dig into every relevant detail. Remember, only one question at a time. Here's the idea: <IDEA>`,
-      
       g1_2: `Now that we've wrapped up the brainstorming process, can you compile our findings into a comprehensive, developer-ready specification? Include all relevant requirements, architecture choices, data handling details, error handling strategies, and a testing plan so a developer can immediately begin implementation.`,
-
       g2_tdd: `Draft a detailed, step-by-step blueprint for building this project. Then, once you have a solid plan, break it down into small, iterative chunks that build on each other. Look at these chunks and then go another round to break it into small steps. Review the results and make sure that the steps are small enough to be implemented safely with strong testing, but big enough to move the project forward. Iterate until you feel that the steps are right sized for this project. From here you should have the foundation to provide a series of prompts for a code-generation LLM that will implement each step in a test-driven manner. Prioritize best practices, incremental progress, and early testing, ensuring no big jumps in complexity at any stage. Make sure that each prompt builds on the previous prompts, and ends with wiring things together. There should be no hanging or orphaned code that isn't integrated into a previous step. Make sure and separate each prompt section. Use markdown. Each prompt should be tagged as text using code tags. The goal is to output prompts, but context, etc is important as well.\n<SPEC>`,
-
       g2_todo: `Can you make a \`todo.md\` that I can use as a checklist? Be thorough.`,
-
       b_review: `You are a senior developer. Your job is to do a thorough code review of this code. You should write it up and output markdown. Include line numbers, and contextual info. Your code review will be passed to another teammate, so be thorough. Think deeply before writing the code review. Review every part, and don't hallucinate.`,
-
       b_issues: `You are a senior developer. Your job is to review this code, and write out the top issues that you see with the code. It could be bugs, design choices, or code cleanliness issues. You should be specific, and be very good. Do Not Hallucinate. Think quietly to yourself, then act - write the issues. The issues will be given to a developer to executed on, so they should be in a format that is compatible with github issues`,
-
       b_tests: `You are a senior developer. Your job is to review this code, and write out a list of missing test cases, and code tests that should exist. You should be specific, and be very good. Do Not Hallucinate.`,
 
-      tmpl_vanilla: `You are an expert web developer specializing in terminal-free, single-file browser application architectures.
-RULES:
-1. Provide implementation exclusively as a complete, single-file index.html.
-2. Stack constraints: Vanilla JS (ES6+), native CSS or inline Tailwind via CDN script. Zero npm packages, zero build tools, zero bundlers.
-3. Architecture: State-driven, fully functional offline or client-side, zero broken imports.
-4. Output format: Directly executable code block without preambles or meta comments.`,
+      // Stack System Prompts
+      tmpl_vanilla: `You are an expert web developer specializing in terminal-free, single-file browser application architectures.\nRULES:\n1. Provide implementation exclusively as a complete, single-file index.html.\n2. Stack constraints: Vanilla JS (ES6+), native CSS or inline Tailwind via CDN script. Zero npm packages, zero build tools.\n3. State-driven, fully functional offline or client-side.`,
+      tmpl_worker: `You are an expert Cloudflare Workers backend engineer.\nRULES:\n1. Output pure, standalone ES modules JavaScript using fetch-handler signature (export default { fetch }).\n2. No Node.js built-ins or external npm dependencies that require esbuild.\n3. Handle CORS preflight explicitly.`,
+      tmpl_supabase: `You are an expert in client-side Supabase integrations without build tooling.\nRULES:\n1. Import Supabase JS client exclusively via CDN script tag.\n2. Initialize globally: const supabase = window.supabase.createClient(URL, KEY)\n3. Include explicit error handling for RLS failures.`,
+      tmpl_gemini: `You are an expert in direct REST API calls to the Google Gemini Free API.\nRULES:\n1. Execute text generation via standard browser fetch calls directly to gemini-1.5-flash.\n2. Raw POST request with JSON payload.\n3. Handle rate limits (429 HTTP status) with exponential backoff.`,
 
-      tmpl_worker: `You are an expert Cloudflare Workers backend engineer.
-RULES:
-1. Output pure, standalone ES modules JavaScript using standard fetch event or fetch-handler signature (export default { fetch(request, env, ctx) }).
-2. No Node.js built-ins or external npm dependencies that require webpack/esbuild.
-3. Handle CORS preflight explicitly and implement complete error responses in JSON format.`,
-
-      tmpl_supabase: `You are an expert in client-side Supabase integrations without build tooling.
-RULES:
-1. Import Supabase JS client exclusively via CDN script tag: https://cdn.jsdelivr.net/npm/@supabase/supabase-javascript@2
-2. Initialize globally: const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
-3. Include explicit error handling for RLS (Row Level Security) failures and network retries.`,
-
-      tmpl_gemini: `You are an expert in direct REST API calls to the Google Gemini Free API.
-RULES:
-1. Execute text generation via standard browser fetch calls directly to:
-   https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=\${API_KEY}
-2. Use raw fetch POST request with JSON payload body { contents: [{ parts: [{ text: prompt }] }] }.
-3. Handle rate limits (429 HTTP status) with exponential backoff.`,
-
-      tmpl_gsap: `You are an expert UI developer specializing in high-performance GSAP 3 animations.
+      // Motion System Prompts
+      tmpl_gsap: `You are an expert UI developer specializing in high-performance GSAP 3 animations and interactive UI state tools.
 RULES:
 1. Load GSAP via CDN script: https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js and ScrollTrigger: https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js
-2. Use timeline sequencing (gsap.timeline()) for state transitions and interactive controls (play, reverse, pause).
-3. Ensure hardware acceleration properties are prioritized (x, y, scale, rotation, opacity).`,
+2. Construct timeline-driven UI components with play/pause/reverse state controls.
+3. Prioritize hardware-accelerated transforms (x, y, scale, rotation, opacity, transformOrigin).
+4. Deliver executable, single-file index.html applications with dark-mode styling.`,
 
-      tmpl_three: `You are an expert WebGL developer specializing in single-file Three.js interactive 3D scenes.
+      tmpl_three: `You are an expert WebGL developer specializing in single-file Three.js interactive 3D web applications.
 RULES:
 1. Load Three.js via CDN: https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js and GSAP for tweening.
-2. Maintain clean WebGL render loops, responsive camera aspect updates, ambient/directional lighting, and mouse raycasting interaction.
-3. Single file architecture without npm or bundlers.`,
+2. Build interactive 3D canvases with raycasting mouse interactions, window resizing handlers, lighting arrays, and geometric mesh generation.
+3. Single file architecture without npm, bundlers, or local asset dependencies.`,
 
-      tmpl_anime: `You are an expert interactive developer specializing in micro-interactions using Anime.js.
+      tmpl_anime: `You are an expert interactive developer specializing in micro-interactions and grid staggered animations using Anime.js.
 RULES:
-1. Load Anime.js via CDN script tag: https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js
-2. Prioritize keyframe arrays, staggered grid animations (anime.stagger()), and responsive easing curves.
-3. Deliver complete, single-file HTML code blocks.`,
+1. Load Anime.js via CDN: https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js
+2. Implement complex keyframe choreography, SVG path morphing, or matrix stagger grids (anime.stagger()).
+3. Provide interactive control toggles and clean vanilla JavaScript bindings in a single index.html.`,
 
-      tmpl_theatre: `You are an expert 3D motion director specializing in Theatre.js timeline choreography with Three.js.
+      tmpl_theatre: `You are an expert 3D motion director specializing in Theatre.js timeline choreography integrated with Three.js WebGL scenes.
 RULES:
-1. Import Theatre Core & Studio scripts via CDN: https://cdn.jsdelivr.net/npm/@theatre/core@0.5.1/dist/index.umd.js and https://cdn.jsdelivr.net/npm/@theatre/studio@0.5.1/dist/index.umd.js
-2. Initialize Studio (Theatre.Studio.initialize()) and map sheet object props to Three.js mesh transformations.
-3. Deliver in a single-file index.html deployment format.`
+1. Import Theatre Core & Studio scripts via CDN:
+   - https://cdn.jsdelivr.net/npm/@theatre/core@0.5.1/dist/index.umd.js
+   - https://cdn.jsdelivr.net/npm/@theatre/studio@0.5.1/dist/index.umd.js
+2. Initialize Theatre Studio (Theatre.Studio.initialize()) and tie sheet object properties directly to WebGL mesh properties.
+3. Deliver complete single-file HTML code blocks ready for instant browser playback.`
     };
 
     function copyToClipboard(text) {
@@ -350,25 +311,19 @@ RULES:
     }
 
     function switchTab(tab) {
-      ['greenfield', 'brownfield', 'stack-templates', 'starter-projects', 'library'].forEach(t => {
+      ['greenfield', 'brownfield', 'stack-templates', 'motion-templates', 'starter-projects', 'library'].forEach(t => {
         document.getElementById(`view-${t}`).classList.add('hidden');
         const btn = document.getElementById(`tab-${t}`);
-        btn.className = "px-4 py-1.5 rounded-md text-xs font-medium transition-all text-zinc-400 hover:text-zinc-200";
+        btn.className = "px-3 py-1.5 rounded-md text-xs font-medium transition-all text-zinc-400 hover:text-zinc-200";
       });
       document.getElementById(`view-${tab}`).classList.remove('hidden');
-      document.getElementById(`tab-${tab}`).className = "px-4 py-1.5 rounded-md text-xs font-medium transition-all bg-emerald-500 text-zinc-950 font-semibold shadow";
+      document.getElementById(`tab-${tab}`).className = "px-3 py-1.5 rounded-md text-xs font-medium transition-all bg-emerald-500 text-zinc-950 font-semibold shadow";
     }
 
     function selectGStep(step) {
       [1, 2, 3].forEach(s => {
         const btn = document.getElementById(`gstep-btn-${s}`);
-        if(s === step) {
-          btn.className = "text-left p-4 rounded-lg border border-emerald-500/50 bg-emerald-950/20 transition-all";
-          btn.querySelector('div').className = "text-xs font-mono text-emerald-400 font-semibold mb-1";
-        } else {
-          btn.className = "text-left p-4 rounded-lg border border-zinc-800 bg-zinc-950/40 opacity-70 hover:opacity-100 transition-all";
-          btn.querySelector('div').className = "text-xs font-mono text-zinc-400 font-semibold mb-1";
-        }
+        btn.className = s === step ? "text-left p-4 rounded-lg border border-emerald-500/50 bg-emerald-950/20 transition-all" : "text-left p-4 rounded-lg border border-zinc-800 bg-zinc-950/40 opacity-70 hover:opacity-100 transition-all";
       });
       renderGStep(step);
     }
@@ -385,13 +340,6 @@ RULES:
               </div>
               <pre class="bg-zinc-950 p-4 rounded-lg text-xs text-zinc-300 border border-zinc-850 whitespace-pre-wrap">${PROMPTS.g1_1}</pre>
             </div>
-            <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-5 space-y-4">
-              <div class="flex justify-between items-center">
-                <h3 class="font-bold text-emerald-400 text-sm tracking-wide uppercase font-mono">2. Compilation Prompt (spec.md)</h3>
-                <button onclick="copyToClipboard(PROMPTS.g1_2)" class="text-xs bg-zinc-800 hover:bg-zinc-700 px-3 py-1 rounded border border-zinc-700 text-zinc-200 font-mono">Copy Prompt</button>
-              </div>
-              <pre class="bg-zinc-950 p-4 rounded-lg text-xs text-zinc-300 border border-zinc-850 whitespace-pre-wrap">${PROMPTS.g1_2}</pre>
-            </div>
           </div>
           <div class="lg:col-span-5 space-y-4">
             <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-5">
@@ -402,69 +350,23 @@ RULES:
               </ul>
             </div>
           </div>`;
-      } else if (step === 2) {
-        container.innerHTML = `
-          <div class="lg:col-span-7 space-y-4">
-            <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-5 space-y-4">
-              <div class="flex justify-between items-center">
-                <h3 class="font-bold text-emerald-400 text-sm tracking-wide uppercase font-mono">Reasoning Model Prompt Plan (TDD Mode)</h3>
-                <button onclick="copyToClipboard(PROMPTS.g2_tdd)" class="text-xs bg-zinc-800 hover:bg-zinc-700 px-3 py-1 rounded border border-zinc-700 text-zinc-200 font-mono">Copy Prompt</button>
-              </div>
-              <pre class="bg-zinc-950 p-4 rounded-lg text-xs text-zinc-300 border border-zinc-850 whitespace-pre-wrap">${PROMPTS.g2_tdd}</pre>
-            </div>
-          </div>
-          <div class="lg:col-span-5 space-y-4">
-            <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-5">
-              <h3 class="font-bold text-zinc-200 text-sm mb-3">Checklist Gate</h3>
-              <ul class="space-y-3 text-xs text-zinc-300">
-                <li class="flex items-start space-x-2"><span class="text-emerald-400 font-bold">✓</span><span>Outputs prompt_plan.md and todo.md</span></li>
-              </ul>
-            </div>
-          </div>`;
-      } else if (step === 3) {
-        container.innerHTML = `
-          <div class="lg:col-span-7 space-y-4">
-            <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-5 space-y-3">
-              <h3 class="font-bold text-emerald-400 text-sm tracking-wide uppercase font-mono">Execution Loop</h3>
-              <p class="text-xs text-zinc-400">Iteratively execute prompt units and check off task states in todo.md.</p>
-            </div>
-          </div>
-          <div class="lg:col-span-5 space-y-4">
-            <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-5">
-              <h3 class="font-bold text-zinc-200 text-sm mb-3">Verification</h3>
-              <ul class="space-y-3 text-xs text-zinc-300">
-                <li class="flex items-start space-x-2"><span class="text-emerald-400 font-bold">✓</span><span>Verify each iteration directly in browser</span></li>
-              </ul>
-            </div>
-          </div>`;
+      } else {
+        container.innerHTML = `<div class="lg:col-span-12 bg-zinc-900 border border-zinc-800 rounded-xl p-5"><pre class="text-xs text-zinc-300 font-mono whitespace-pre-wrap">${PROMPTS.g2_tdd}</pre></div>`;
       }
     }
 
     function selectBStep(step) {
       [1, 2, 3, 4].forEach(s => {
         const btn = document.getElementById(`bstep-btn-${s}`);
-        if(s === step) {
-          btn.className = "text-left p-4 rounded-lg border border-emerald-500/50 bg-emerald-950/20 transition-all";
-          btn.querySelector('div').className = "text-xs font-mono text-emerald-400 font-semibold mb-1";
-        } else {
-          btn.className = "text-left p-4 rounded-lg border border-zinc-800 bg-zinc-950/40 opacity-70 hover:opacity-100 transition-all";
-          btn.querySelector('div').className = "text-xs font-mono text-zinc-400 font-semibold mb-1";
-        }
+        btn.className = s === step ? "text-left p-4 rounded-lg border border-emerald-500/50 bg-emerald-950/20 transition-all" : "text-left p-4 rounded-lg border border-zinc-800 bg-zinc-950/40 opacity-70 hover:opacity-100 transition-all";
       });
       renderBStep(step);
     }
 
     function renderBStep(step) {
       const container = document.getElementById('bstep-content');
-      if (step === 1) {
-        container.innerHTML = `<div class="lg:col-span-12 bg-zinc-900 border border-zinc-800 rounded-xl p-5"><h3 class="font-bold text-emerald-400 text-sm font-mono mb-2">Context Bundling</h3><p class="text-xs text-zinc-300">Run repomix locally to output single-file codebase context.</p></div>`;
-      } else if (step === 2) {
-        container.innerHTML = `<div class="lg:col-span-12 bg-zinc-900 border border-zinc-800 rounded-xl p-5"><pre class="text-xs text-zinc-300 font-mono whitespace-pre-wrap">${PROMPTS.b_review}</pre></div>`;
-      } else if (step === 3) {
-        container.innerHTML = `<div class="lg:col-span-12 bg-zinc-900 border border-zinc-800 rounded-xl p-5"><pre class="text-xs text-zinc-300 font-mono whitespace-pre-wrap">${PROMPTS.b_issues}</pre></div>`;
-      } else if (step === 4) {
-        container.innerHTML = `<div class="lg:col-span-12 bg-zinc-900 border border-zinc-800 rounded-xl p-5"><pre class="text-xs text-zinc-300 font-mono whitespace-pre-wrap">${PROMPTS.b_tests}</pre></div>`;
-      }
+      const keys = ['b_review', 'b_review', 'b_issues', 'b_tests'];
+      container.innerHTML = `<div class="lg:col-span-12 bg-zinc-900 border border-zinc-800 rounded-xl p-5"><pre class="text-xs text-zinc-300 font-mono whitespace-pre-wrap">${PROMPTS[keys[step-1]]}</pre></div>`;
     }
 
     function renderStackTemplates() {
@@ -473,11 +375,7 @@ RULES:
         { title: 'Vanilla Single-File HTML/CSS/JS', tag: 'Frontend / iPad Native', key: 'tmpl_vanilla' },
         { title: 'Cloudflare Workers Edge API', tag: 'Backend Compute', key: 'tmpl_worker' },
         { title: 'Supabase CDN Client Architecture', tag: 'Auth & Persistence', key: 'tmpl_supabase' },
-        { title: 'Direct REST Gemini Free API', tag: 'In-Browser AI Integration', key: 'tmpl_gemini' },
-        { title: 'GSAP 3 Timeline & ScrollTrigger', tag: 'Animation Engine', key: 'tmpl_gsap' },
-        { title: 'Three.js Interactive 3D Canvas', tag: 'WebGL / 3D Scene', key: 'tmpl_three' },
-        { title: 'Anime.js Micro-Interactions', tag: 'Micro-Animations', key: 'tmpl_anime' },
-        { title: 'Theatre.js + Three.js Motion Studio', tag: 'Keyframe Choreography', key: 'tmpl_theatre' }
+        { title: 'Direct REST Gemini Free API', tag: 'In-Browser AI Integration', key: 'tmpl_gemini' }
       ];
 
       grid.innerHTML = templates.map(t => `
@@ -494,40 +392,48 @@ RULES:
       `).join('');
     }
 
-    function renderVault() {
-      const list = document.getElementById('vault-list');
-      const items = [
-        { title: 'Greenfield Step 1: Brainstorming', key: 'g1_1' },
-        { title: 'Greenfield Step 1: Spec Output', key: 'g1_2' },
-        { title: 'Greenfield Step 2: Prompt Plan (TDD)', key: 'g2_tdd' },
-        { title: 'Brownfield: Code Review', key: 'b_review' },
-        { title: 'Brownfield: GitHub Issues', key: 'b_issues' },
-        { title: 'Brownfield: Missing Tests', key: 'b_tests' },
-        { title: 'Stack System: Vanilla Single-File', key: 'tmpl_vanilla' },
-        { title: 'Stack System: Cloudflare Worker', key: 'tmpl_worker' },
-        { title: 'Stack System: Supabase CDN', key: 'tmpl_supabase' },
-        { title: 'Stack System: Gemini REST API', key: 'tmpl_gemini' },
-        { title: 'Stack System: GSAP 3 UI Animations', key: 'tmpl_gsap' },
-        { title: 'Stack System: Three.js Interactive WebGL', key: 'tmpl_three' },
-        { title: 'Stack System: Anime.js Stagger Engine', key: 'tmpl_anime' },
-        { title: 'Stack System: Theatre.js Motion Director', key: 'tmpl_theatre' }
+    function renderMotionTemplates() {
+      const grid = document.getElementById('motion-templates-grid');
+      const templates = [
+        { title: 'GSAP 3 UI Animation Engine', tag: 'Timeline & ScrollTrigger', key: 'tmpl_gsap' },
+        { title: 'Three.js Interactive WebGL Scene', tag: '3D Mesh & Raycasting', key: 'tmpl_three' },
+        { title: 'Anime.js Micro-Interaction Engine', tag: 'Stagger Grid & Keyframes', key: 'tmpl_anime' },
+        { title: 'Theatre.js Motion Director', tag: 'Visual Keyframe Choreography', key: 'tmpl_theatre' }
       ];
 
-      list.innerHTML = items.map(item => `
-        <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-5 space-y-3">
+      grid.innerHTML = templates.map(t => `
+        <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-5 space-y-4">
           <div class="flex justify-between items-center">
-            <h3 class="font-bold text-zinc-100 text-sm">${item.title}</h3>
-            <button onclick="copyToClipboard(PROMPTS.${item.key})" class="text-xs bg-zinc-800 hover:bg-zinc-700 px-3 py-1.5 rounded border border-zinc-700 text-zinc-200 font-mono">Copy</button>
+            <div>
+              <h3 class="font-bold text-zinc-100 text-sm">${t.title}</h3>
+              <span class="text-xs text-emerald-400 font-mono">${t.tag}</span>
+            </div>
+            <button onclick="copyToClipboard(PROMPTS.${t.key})" class="text-xs bg-zinc-800 hover:bg-zinc-700 px-3 py-1.5 rounded border border-zinc-700 text-zinc-200 font-mono">Copy Prompt</button>
           </div>
-          <pre class="bg-zinc-950 p-4 rounded-lg text-xs text-zinc-300 border border-zinc-850 whitespace-pre-wrap font-mono">${PROMPTS[item.key]}</pre>
+          <pre class="bg-zinc-950 p-4 rounded-lg text-xs text-zinc-300 border border-zinc-850 whitespace-pre-wrap font-mono max-h-52 overflow-y-auto">${PROMPTS[t.key]}</pre>
         </div>
       `).join('');
     }
 
-    // Init
+    function renderVault() {
+      const list = document.getElementById('vault-list');
+      const keys = Object.keys(PROMPTS);
+      list.innerHTML = keys.map(k => `
+        <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-5 space-y-3">
+          <div class="flex justify-between items-center">
+            <h3 class="font-bold text-zinc-100 text-sm font-mono">${k}</h3>
+            <button onclick="copyToClipboard(PROMPTS.${k})" class="text-xs bg-zinc-800 hover:bg-zinc-700 px-3 py-1.5 rounded border border-zinc-700 text-zinc-200 font-mono">Copy</button>
+          </div>
+          <pre class="bg-zinc-950 p-4 rounded-lg text-xs text-zinc-300 border border-zinc-850 whitespace-pre-wrap font-mono">${PROMPTS[k]}</pre>
+        </div>
+      `).join('');
+    }
+
+    // Init All Views
     renderGStep(1);
     renderBStep(1);
     renderStackTemplates();
+    renderMotionTemplates();
     renderVault();
   </script>
 </body>
