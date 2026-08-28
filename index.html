@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vibe Coding Engine & Stack Templates</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            zinc: { 950: '#09090b', 900: '#18181b', 850: '#202024', 800: '#27272a', 700: '#3f3f46' },
+            emerald: { 400: '#34d399', 500: '#10b981', 950: '#022c22' }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap');
+    body { font-family: 'Inter', sans-serif; }
+    pre, code { font-family: 'Fira Code', monospace; }
+  </style>
+</head>
+<body class="bg-zinc-950 text-zinc-100 min-h-screen flex flex-col antialiased selection:bg-emerald-500 selection:text-zinc-950">
+
+  <header class="border-b border-zinc-800 bg-zinc-900/50 backdrop-blur sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <div class="w-3 h-3 rounded-full bg-emerald-400 animate-pulse"></div>
+        <span class="font-bold text-lg tracking-tight bg-gradient-to-r from-zinc-100 to-zinc-400 bg-clip-text text-transparent">
+          VibeCoder Engine
+        </span>
+        <span class="text-xs px-2 py-0.5 rounded bg-zinc-800 text-zinc-400 border border-zinc-700 font-mono">gh-pages</span>
+      </div>
+      <nav class="flex space-x-1 bg-zinc-950 p-1 rounded-lg border border-zinc-800" id="nav-tabs">
+        <button onclick="switchTab('greenfield')" id="tab-greenfield" class="px-4 py-1.5 rounded-md text-xs font-medium transition-all bg-emerald-500 text-zinc-950 font-semibold shadow">
+          Greenfield Pipeline
+        </button>
+        <button onclick="switchTab('brownfield')" id="tab-brownfield" class="px-4 py-1.5 rounded-md text-xs font-medium transition-all text-zinc-400 hover:text-zinc-200">
+          Brownfield Pipeline
+        </button>
+        <button onclick="switchTab('stack-templates')" id="tab-stack-templates" class="px-4 py-1.5 rounded-md text-xs font-medium transition-all text-zinc-400 hover:text-zinc-200">
+          Stack Templates
+        </button>
+        <button onclick="switchTab('library')" id="tab-library" class="px-4 py-1.5 rounded-md text-xs font-medium transition-all text-zinc-400 hover:text-zinc-200">
+          Prompt Vault
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+
+    <section id="view-greenfield" class="space-y-6">
+      <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-6">
+        <h1 class="text-xl font-bold text-zinc-100 mb-2">Greenfield Workflow Pipeline</h1>
+        <p class="text-sm text-zinc-400">Spec generation, prompt planning, and TDD execution loops.</p>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
+          <button onclick="selectGStep(1)" id="gstep-btn-1" class="text-left p-4 rounded-lg border border-emerald-500/50 bg-emerald-950/20 transition-all">
+            <div class="text-xs font-mono text-emerald-400 font-semibold mb-1">STEP 01 • BRAINSTORM</div>
+            <div class="text-sm font-semibold text-zinc-200">Idea Honing & Spec</div>
+          </button>
+          <button onclick="selectGStep(2)" id="gstep-btn-2" class="text-left p-4 rounded-lg border border-zinc-800 bg-zinc-950/40 opacity-70 hover:opacity-100 transition-all">
+            <div class="text-xs font-mono text-zinc-400 font-semibold mb-1">STEP 02 • PLANNING</div>
+            <div class="text-sm font-semibold text-zinc-200">Blueprint & Prompt Plan</div>
+          </button>
+          <button onclick="selectGStep(3)" id="gstep-btn-3" class="text-left p-4 rounded-lg border border-zinc-800 bg-zinc-950/40 opacity-70 hover:opacity-100 transition-all">
+            <div class="text-xs font-mono text-zinc-400 font-semibold mb-1">STEP 03 • EXECUTION</div>
+            <div class="text-sm font-semibold text-zinc-200">Loop & Verification</div>
+          </button>
+        </div>
+      </div>
+      <div id="gstep-content" class="grid grid-cols-1 lg:grid-cols-12 gap-6"></div>
+    </section>
+
+    <section id="view-brownfield" class="hidden space-y-6">
+      <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-6">
+        <h1 class="text-xl font-bold text-zinc-100 mb-2">Brownfield Iteration Pipeline</h1>
+        <p class="text-sm text-zinc-400">Context packing, code reviews, issue extraction, and missing test suits.</p>
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mt-6">
+          <button onclick="selectBStep(1)" id="bstep-btn-1" class="text-left p-4 rounded-lg border border-emerald-500/50 bg-emerald-950/20 transition-all">
+            <div class="text-xs font-mono text-emerald-400 font-semibold mb-1">01 • BUNDLE</div>
+            <div class="text-sm font-semibold text-zinc-200">Repomix Context</div>
+          </button>
+          <button onclick="selectBStep(2)" id="bstep-btn-2" class="text-left p-4 rounded-lg border border-zinc-800 bg-zinc-950/40 opacity-70 hover:opacity-100 transition-all">
+            <div class="text-xs font-mono text-zinc-400 font-semibold mb-1">02 • AUDIT</div>
+            <div class="text-sm font-semibold text-zinc-200">Code Review</div>
+          </button>
+          <button onclick="selectBStep(3)" id="bstep-btn-3" class="text-left p-4 rounded-lg border border-zinc-800 bg-zinc-950/40 opacity-70 hover:opacity-100 transition-all">
+            <div class="text-xs font-mono text-zinc-400 font-semibold mb-1">03 • ISSUES</div>
+            <div class="text-sm font-semibold text-zinc-200">GitHub Issues</div>
+          </button>
+          <button onclick="selectBStep(4)" id="bstep-btn-4" class="text-left p-4 rounded-lg border border-zinc-800 bg-zinc-950/40 opacity-70 hover:opacity-100 transition-all">
+            <div class="text-xs font-mono text-zinc-400 font-semibold mb-1">04 • TESTS</div>
+            <div class="text-sm font-semibold text-zinc-200">Missing Tests</div>
+          </button>
+        </div>
+      </div>
+      <div id="bstep-content" class="grid grid-cols-1 lg:grid-cols-12 gap-6"></div>
+    </section>
+
+    <section id="view-stack-templates" class="hidden space-y-6">
+      <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-6">
+        <h1 class="text-xl font-bold text-zinc-100 mb-2">Custom Tech Stack System Prompts</h1>
+        <p class="text-sm text-zinc-400">Pre-configured operational prompts strictly constrained to single-file client implementations, Cloudflare Workers, and Supabase integration.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-5 space-y-4">
+          <div class="flex justify-between items-center">
+            <div>
+              <h3 class="font-bold text-zinc-100 text-sm">Vanilla Single-File HTML/CSS/JS</h3>
+              <span class="text-xs text-emerald-400 font-mono">Frontend / iPad Native</span>
+            </div>
+            <button onclick="copyToClipboard(PROMPTS.tmpl_vanilla)" class="text-xs bg-zinc-800 hover:bg-zinc-700 px-3 py-1.5 rounded border border-zinc-700 text-zinc-200 font-mono">Copy</button>
+          </div>
+          <pre class="bg-zinc-950 p-4 rounded-lg text-xs text-zinc-300 border border-zinc-850 whitespace-pre-wrap font-mono">${PROMPTS.tmpl_vanilla}</pre>
+        </div>
+
+        <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-5 space-y-4">
+          <div class="flex justify-between items-center">
+            <div>
+              <h3 class="font-bold text-zinc-100 text-sm">Cloudflare Workers Edge API</h3>
+              <span class="text-xs text-emerald-400 font-mono">Backend Compute</span>
+            </div>
+            <button onclick="copyToClipboard(PROMPTS.tmpl_worker)" class="text-xs bg-zinc-800 hover:bg-zinc-700 px-3 py-1.5 rounded border border-zinc-700 text-zinc-200 font-mono">Copy</button>
+          </div>
+          <pre class="bg-zinc-950 p-4 rounded-lg text-xs text-zinc-300 border border-zinc-850 whitespace-pre-wrap font-mono">${PROMPTS.tmpl_worker}</pre>
+        </div>
+
+        <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-5 space-y-4">
+          <div class="flex justify-between items-center">
+            <div>
+              <h3 class="font-bold text-zinc-100 text-sm">Supabase CDN Client Architecture</h3>
+              <span class="text-xs text-emerald-400 font-mono">Auth & Persistence</span>
+            </div>
+            <button onclick="copyToClipboard(PROMPTS.tmpl_supabase)" class="text-xs bg-zinc-800 hover:bg-zinc-700 px-3 py-1.5 rounded border border-zinc-700 text-zinc-200 font-mono">Copy</button>
+          </div>
+          <pre class="bg-zinc-950 p-4 rounded-lg text-xs text-zinc-300 border border-zinc-850 whitespace-pre-wrap font-mono">${PROMPTS.tmpl_supabase}</pre>
+        </div>
+
+        <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-5 space-y-4">
+          <div class="flex justify-between items-center">
+            <div>
+              <h3 class="font-bold text-zinc-100 text-sm">Direct REST Gemini Free API</h3>
+              <span class="text-xs text-emerald-400 font-mono">In-Browser AI Integration</span>
+            </div>
+            <button onclick="copyToClipboard(PROMPTS.tmpl_gemini)" class="text-xs bg-zinc-800 hover:bg-zinc-700 px-3 py-1.5 rounded border border-zinc-700 text-zinc-200 font-mono">Copy</button>
+          </div>
+          <pre class="bg-zinc-950 p-4 rounded-lg text-xs text-zinc-300 border border-zinc-850 whitespace-pre-wrap font-mono">${PROMPTS.tmpl_gemini}</pre>
+        </div>
+      </div>
+    </section>
+
+    <section id="view-library" class="hidden space-y-6">
+      <div class="flex justify-between items-center">
+        <div>
+          <h1 class="text-xl font-bold text-zinc-100">Master Prompt Vault</h1>
+          <p class="text-sm text-zinc-400">All workflow core prompts and operational instructions.</p>
+        </div>
+      </div>
+      <div id="vault-list" class="space-y-6"></div>
+    </section>
+
+  </main>
+
+  <script>
+    const PROMPTS = {
+      g1_1: `Ask me one question at a time so we can develop a thorough, step-by-step spec for this idea. Each question should build on my previous answers, and our end goal is to have a detailed specification I can hand off to a developer. Let's do this iteratively and dig into every relevant detail. Remember, only one question at a time. Here's the idea: <IDEA>`,
+      
+      g1_2: `Now that we've wrapped up the brainstorming process, can you compile our findings into a comprehensive, developer-ready specification? Include all relevant requirements, architecture choices, data handling details, error handling strategies, and a testing plan so a developer can immediately begin implementation.`,
+
+      g2_tdd: `Draft a detailed, step-by-step blueprint for building this project. Then, once you have a solid plan, break it down into small, iterative chunks that build on each other. Look at these chunks and then go another round to break it into small steps. Review the results and make sure that the steps are small enough to be implemented safely with strong testing, but big enough to move the project forward. Iterate until you feel that the steps are right sized for this project. From here you should have the foundation to provide a series of prompts for a code-generation LLM that will implement each step in a test-driven manner. Prioritize best practices, incremental progress, and early testing, ensuring no big jumps in complexity at any stage. Make sure that each prompt builds on the previous prompts, and ends with wiring things together. There should be no hanging or orphaned code that isn't integrated into a previous step. Make sure and separate each prompt section. Use markdown. Each prompt should be tagged as text using code tags. The goal is to output prompts, but context, etc is important as well.\n<SPEC>`,
+
+      g2_todo: `Can you make a \`todo.md\` that I can use as a checklist? Be thorough.`,
+
+      b_review: `You are a senior developer. Your job is to do a thorough code review of this code. You should write it up and output markdown. Include line numbers, and contextual info. Your code review will be passed to another teammate, so be thorough. Think deeply before writing the code review. Review every part, and don't hallucinate.`,
+
+      b_issues: `You are a senior developer. Your job is to review this code, and write out the top issues that you see with the code. It could be bugs, design choices, or code cleanliness issues. You should be specific, and be very good. Do Not Hallucinate. Think quietly to yourself, then act - write the issues. The issues will be given to a developer to executed on, so they should be in a format that is compatible with github issues`,
+
+      b_tests: `You are a senior developer. Your job is to review this code, and write out a list of missing test cases, and code tests that should exist. You should be specific, and be very good. Do Not Hallucinate.`,
+
+      tmpl_vanilla: `You are an expert web developer specializing in terminal-free, single-file browser application architectures.
+RULES:
+1. Provide implementation exclusively as a complete, single-file index.html.
+2. Stack constraints: Vanilla JS (ES6+), native CSS or inline Tailwind via CDN script. Zero npm packages, zero build tools, zero bundlers.
+3. Architecture: State-driven, fully functional offline or client-side, zero broken imports.
+4. Output format: Directly executable code block without preambles or meta comments.`,
+
+      tmpl_worker: `You are an expert Cloudflare Workers backend engineer.
+RULES:
+1. Output pure, standalone ES modules JavaScript using standard fetch event or fetch-handler signature (export default { fetch(request, env, ctx) }).
+2. No Node.js built-ins or external npm dependencies that require webpack/esbuild.
+3. Handle CORS preflight explicitly and implement complete error responses in JSON format.`,
+
+      tmpl_supabase: `You are an expert in client-side Supabase integrations without build tooling.
+RULES:
+1. Import Supabase JS client exclusively via CDN script tag: https://cdn.jsdelivr.net/npm/@supabase/supabase-javascript@2
+2. Initialize globally: const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
+3. Include explicit error handling for RLS (Row Level Security) failures and network retries.`,
+
+      tmpl_gemini: `You are an expert in direct REST API calls to the Google Gemini Free API.
+RULES:
+1. Execute text generation via standard browser fetch calls directly to:
+   https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=\${API_KEY}
+2. Use raw fetch POST request with JSON payload body { contents: [{ parts: [{ text: prompt }] }] }.
+3. Handle rate limits (429 HTTP status) with exponential backoff.`
+    };
+
+    function copyToClipboard(text) {
+      navigator.clipboard.writeText(text);
+      alert('Prompt copied to clipboard!');
+    }
+
+    function switchTab(tab) {
+      ['greenfield', 'brownfield', 'stack-templates', 'library'].forEach(t => {
+        document.getElementById(`view-${t}`).classList.add('hidden');
+        const btn = document.getElementById(`tab-${t}`);
+        btn.className = "px-4 py-1.5 rounded-md text-xs font-medium transition-all text-zinc-400 hover:text-zinc-200";
+      });
+      document.getElementById(`view-${tab}`).classList.remove('hidden');
+      document.getElementById(`tab-${tab}`).className = "px-4 py-1.5 rounded-md text-xs font-medium transition-all bg-emerald-500 text-zinc-950 font-semibold shadow";
+    }
+
+    function selectGStep(step) {
+      [1, 2, 3].forEach(s => {
+        const btn = document.getElementById(`gstep-btn-${s}`);
+        if(s === step) {
+          btn.className = "text-left p-4 rounded-lg border border-emerald-500/50 bg-emerald-950/20 transition-all";
+          btn.querySelector('div').className = "text-xs font-mono text-emerald-400 font-semibold mb-1";
+        } else {
+          btn.className = "text-left p-4 rounded-lg border border-zinc-800 bg-zinc-950/40 opacity-70 hover:opacity-100 transition-all";
+          btn.querySelector('div').className = "text-xs font-mono text-zinc-400 font-semibold mb-1";
+        }
+      });
+      renderGStep(step);
+    }
+
+    function renderGStep(step) {
+      const container = document.getElementById('gstep-content');
+      if (step === 1) {
+        container.innerHTML = `
+          <div class="lg:col-span-7 space-y-4">
+            <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-5 space-y-4">
+              <div class="flex justify-between items-center">
+                <h3 class="font-bold text-emerald-400 text-sm tracking-wide uppercase font-mono">1. Interactive Brainstorming Prompt</h3>
+                <button onclick="copyToClipboard(PROMPTS.g1_1)" class="text-xs bg-zinc-800 hover:bg-zinc-700 px-3 py-1 rounded border border-zinc-700 text-zinc-200 font-mono">Copy Prompt</button>
+              </div>
+              <pre class="bg-zinc-950 p-4 rounded-lg text-xs text-zinc-300 border border-zinc-850 whitespace-pre-wrap">${PROMPTS.g1_1}</pre>
+            </div>
+            <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-5 space-y-4">
+              <div class="flex justify-between items-center">
+                <h3 class="font-bold text-emerald-400 text-sm tracking-wide uppercase font-mono">2. Compilation Prompt (spec.md)</h3>
+                <button onclick="copyToClipboard(PROMPTS.g1_2)" class="text-xs bg-zinc-800 hover:bg-zinc-700 px-3 py-1 rounded border border-zinc-700 text-zinc-200 font-mono">Copy Prompt</button>
+              </div>
+              <pre class="bg-zinc-950 p-4 rounded-lg text-xs text-zinc-300 border border-zinc-850 whitespace-pre-wrap">${PROMPTS.g1_2}</pre>
+            </div>
+          </div>
+          <div class="lg:col-span-5 space-y-4">
+            <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-5">
+              <h3 class="font-bold text-zinc-200 text-sm mb-3">Evaluation Rubric</h3>
+              <ul class="space-y-3 text-xs text-zinc-300">
+                <li class="flex items-start space-x-2"><span class="text-emerald-400 font-bold">✓</span><span>Single Question Enforced</span></li>
+                <li class="flex items-start space-x-2"><span class="text-emerald-400 font-bold">✓</span><span>Saves to spec.md</span></li>
+              </ul>
+            </div>
+          </div>`;
+      } else if (step === 2) {
+        container.innerHTML = `
+          <div class="lg:col-span-7 space-y-4">
+            <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-5 space-y-4">
+              <div class="flex justify-between items-center">
+                <h3 class="font-bold text-emerald-400 text-sm tracking-wide uppercase font-mono">Reasoning Model Prompt Plan (TDD Mode)</h3>
+                <button onclick="copyToClipboard(PROMPTS.g2_tdd)" class="text-xs bg-zinc-800 hover:bg-zinc-700 px-3 py-1 rounded border border-zinc-700 text-zinc-200 font-mono">Copy Prompt</button>
+              </div>
+              <pre class="bg-zinc-950 p-4 rounded-lg text-xs text-zinc-300 border border-zinc-850 whitespace-pre-wrap">${PROMPTS.g2_tdd}</pre>
+            </div>
+          </div>
+          <div class="lg:col-span-5 space-y-4">
+            <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-5">
+              <h3 class="font-bold text-zinc-200 text-sm mb-3">Checklist Gate</h3>
+              <ul class="space-y-3 text-xs text-zinc-300">
+                <li class="flex items-start space-x-2"><span class="text-emerald-400 font-bold">✓</span><span>Outputs prompt_plan.md and todo.md</span></li>
+              </ul>
+            </div>
+          </div>`;
+      } else if (step === 3) {
+        container.innerHTML = `
+          <div class="lg:col-span-7 space-y-4">
+            <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-5 space-y-3">
+              <h3 class="font-bold text-emerald-400 text-sm tracking-wide uppercase font-mono">Execution Loop</h3>
+              <p class="text-xs text-zinc-400">Iteratively execute prompt units and check off task states in todo.md.</p>
+            </div>
+          </div>
+          <div class="lg:col-span-5 space-y-4">
+            <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-5">
+              <h3 class="font-bold text-zinc-200 text-sm mb-3">Verification</h3>
+              <ul class="space-y-3 text-xs text-zinc-300">
+                <li class="flex items-start space-x-2"><span class="text-emerald-400 font-bold">✓</span><span>Verify each iteration directly in browser</span></li>
+              </ul>
+            </div>
+          </div>`;
+      }
+    }
+
+    function selectBStep(step) {
+      [1, 2, 3, 4].forEach(s => {
+        const btn = document.getElementById(`bstep-btn-${s}`);
+        if(s === step) {
+          btn.className = "text-left p-4 rounded-lg border border-emerald-500/50 bg-emerald-950/20 transition-all";
+          btn.querySelector('div').className = "text-xs font-mono text-emerald-400 font-semibold mb-1";
+        } else {
+          btn.className = "text-left p-4 rounded-lg border border-zinc-800 bg-zinc-950/40 opacity-70 hover:opacity-100 transition-all";
+          btn.querySelector('div').className = "text-xs font-mono text-zinc-400 font-semibold mb-1";
+        }
+      });
+      renderBStep(step);
+    }
+
+    function renderBStep(step) {
+      const container = document.getElementById('bstep-content');
+      if (step === 1) {
+        container.innerHTML = `<div class="lg:col-span-12 bg-zinc-900 border border-zinc-800 rounded-xl p-5"><h3 class="font-bold text-emerald-400 text-sm font-mono mb-2">Context Bundling</h3><p class="text-xs text-zinc-300">Run repomix locally to output single-file codebase context.</p></div>`;
+      } else if (step === 2) {
+        container.innerHTML = `<div class="lg:col-span-12 bg-zinc-900 border border-zinc-800 rounded-xl p-5"><pre class="text-xs text-zinc-300 font-mono whitespace-pre-wrap">${PROMPTS.b_review}</pre></div>`;
+      } else if (step === 3) {
+        container.innerHTML = `<div class="lg:col-span-12 bg-zinc-900 border border-zinc-800 rounded-xl p-5"><pre class="text-xs text-zinc-300 font-mono whitespace-pre-wrap">${PROMPTS.b_issues}</pre></div>`;
+      } else if (step === 4) {
+        container.innerHTML = `<div class="lg:col-span-12 bg-zinc-900 border border-zinc-800 rounded-xl p-5"><pre class="text-xs text-zinc-300 font-mono whitespace-pre-wrap">${PROMPTS.b_tests}</pre></div>`;
+      }
+    }
+
+    function renderVault() {
+      const list = document.getElementById('vault-list');
+      const items = [
+        { title: 'Greenfield Step 1: Brainstorming', key: 'g1_1' },
+        { title: 'Greenfield Step 1: Spec Output', key: 'g1_2' },
+        { title: 'Greenfield Step 2: Prompt Plan (TDD)', key: 'g2_tdd' },
+        { title: 'Brownfield: Code Review', key: 'b_review' },
+        { title: 'Brownfield: GitHub Issues', key: 'b_issues' },
+        { title: 'Brownfield: Missing Tests', key: 'b_tests' }
+      ];
+
+      list.innerHTML = items.map(item => `
+        <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-5 space-y-3">
+          <div class="flex justify-between items-center">
+            <h3 class="font-bold text-zinc-100 text-sm">${item.title}</h3>
+            <button onclick="copyToClipboard(PROMPTS.${item.key})" class="text-xs bg-zinc-800 hover:bg-zinc-700 px-3 py-1.5 rounded border border-zinc-700 text-zinc-200 font-mono">Copy</button>
+          </div>
+          <pre class="bg-zinc-950 p-4 rounded-lg text-xs text-zinc-300 border border-zinc-850 whitespace-pre-wrap font-mono">${PROMPTS[item.key]}</pre>
+        </div>
+      `).join('');
+    }
+
+    // Init
+    renderGStep(1);
+    renderBStep(1);
+    renderVault();
+  </script>
+</body>
+</html>
