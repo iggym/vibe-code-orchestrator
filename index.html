@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vibe Coding Engine & Expanded Starter Blueprints</title>
+  <title>VibeCoder Engine Pro</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -11,88 +11,143 @@
       theme: {
         extend: {
           colors: {
-            zinc: { 950: '#09090b', 900: '#18181b', 850: '#202024', 800: '#27272a', 700: '#3f3f46' },
+            zinc: { 950: '#09090b', 900: '#121215', 850: '#1a1a1e', 800: '#27272a', 700: '#3f3f46' },
             emerald: { 400: '#34d399', 500: '#10b981', 950: '#022c22' }
+          },
+          fontFamily: {
+            sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+            mono: ['Fira Code', 'JetBrains Mono', 'monospace']
           }
         }
       }
     }
   </script>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap');
-    body { font-family: 'Inter', sans-serif; }
-    pre, code { font-family: 'Fira Code', monospace; }
+    @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@300;400;500;600;700&display=swap');
+    
+    body { 
+      font-family: 'Inter', sans-serif;
+      background-color: #09090b;
+      background-image: 
+        radial-gradient(at 0% 0%, rgba(16, 185, 129, 0.05) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(24, 24, 27, 0.8) 0px, transparent 50%);
+      background-attachment: fixed;
+    }
+
+    /* Apple-style Glassmorphism */
+    .glass-panel {
+      background: rgba(18, 18, 21, 0.7);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+    }
+
+    .glass-card {
+      background: rgba(26, 26, 30, 0.5);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .glass-card:hover {
+      background: rgba(32, 32, 38, 0.7);
+      border-color: rgba(16, 185, 129, 0.3);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.5), 0 0 20px -5px rgba(16, 185, 129, 0.15);
+    }
+
+    /* High-end Scrollbars */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: #09090b; }
+    ::-webkit-scrollbar-thumb { background: #27272a; border-radius: 9999px; }
+    ::-webkit-scrollbar-thumb:hover { background: #3f3f46; }
+
+    .glow-emerald {
+      box-shadow: 0 0 25px -5px rgba(16, 185, 129, 0.25);
+    }
   </style>
 </head>
-<body class="bg-zinc-950 text-zinc-100 min-h-screen flex flex-col antialiased selection:bg-emerald-500 selection:text-zinc-950">
+<body class="text-zinc-100 min-h-screen flex flex-col antialiased selection:bg-emerald-500 selection:text-zinc-950">
 
-  <header class="border-b border-zinc-800 bg-zinc-900/50 backdrop-blur sticky top-0 z-50">
+  <header class="sticky top-0 z-50 glass-panel border-b border-zinc-800/80">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      
       <div class="flex items-center space-x-3">
-        <div class="w-3 h-3 rounded-full bg-emerald-400 animate-pulse"></div>
-        <span class="font-bold text-lg tracking-tight bg-gradient-to-r from-zinc-100 to-zinc-400 bg-clip-text text-transparent">
+        <div class="relative flex items-center justify-center w-3 h-3">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+        </div>
+        <span class="font-bold text-base tracking-tight bg-gradient-to-r from-white via-zinc-200 to-zinc-400 bg-clip-text text-transparent">
           VibeCoder Engine
         </span>
-        <span id="version-badge" class="text-xs px-2 py-0.5 rounded bg-zinc-800 text-emerald-400 border border-zinc-700 font-mono transition-all">v1.3.0</span>
+        <span id="version-badge" class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-emerald-950/80 text-emerald-400 border border-emerald-800/60 transition-all duration-300">
+          v1.4.0
+        </span>
       </div>
+
       <div class="flex items-center space-x-3">
-        <button onclick="toggleModal('modal-howto')" class="text-xs px-3 py-1.5 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-zinc-200 border border-zinc-700 font-medium transition-all flex items-center space-x-1.5">
-          <span>📖</span> <span>How-To Guide</span>
+        <button onclick="toggleModal('modal-howto')" class="text-xs px-3 py-1.5 rounded-lg bg-zinc-800/60 hover:bg-zinc-700/60 text-zinc-300 border border-zinc-700/50 font-medium transition-all flex items-center space-x-1.5 hover:border-zinc-500">
+          <span>📖</span> <span>Guide</span>
         </button>
-        <nav class="flex space-x-1 bg-zinc-950 p-1 rounded-lg border border-zinc-800" id="nav-tabs">
-          <button onclick="switchTab('starter-projects')" id="tab-starter-projects" class="px-3 py-1.5 rounded-md text-xs font-medium transition-all bg-emerald-500 text-zinc-950 font-semibold shadow">
+
+        <nav class="flex space-x-1 bg-zinc-950/80 p-1 rounded-xl border border-zinc-800/80 shadow-inner" id="nav-tabs">
+          <button onclick="switchTab('starter-projects')" id="tab-starter-projects" class="px-3 py-1.5 rounded-lg text-xs font-semibold transition-all duration-200 bg-emerald-500 text-zinc-950 shadow-lg glow-emerald">
             Starter Projects
           </button>
-          <button onclick="switchTab('greenfield')" id="tab-greenfield" class="px-3 py-1.5 rounded-md text-xs font-medium transition-all text-zinc-400 hover:text-zinc-200">
+          <button onclick="switchTab('greenfield')" id="tab-greenfield" class="px-3 py-1.5 rounded-lg text-xs font-medium transition-all duration-200 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-900/50">
             Greenfield
           </button>
-          <button onclick="switchTab('brownfield')" id="tab-brownfield" class="px-3 py-1.5 rounded-md text-xs font-medium transition-all text-zinc-400 hover:text-zinc-200">
+          <button onclick="switchTab('brownfield')" id="tab-brownfield" class="px-3 py-1.5 rounded-lg text-xs font-medium transition-all duration-200 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-900/50">
             Brownfield
           </button>
-          <button onclick="switchTab('stack-templates')" id="tab-stack-templates" class="px-3 py-1.5 rounded-md text-xs font-medium transition-all text-zinc-400 hover:text-zinc-200">
-            System Stacks
+          <button onclick="switchTab('stack-templates')" id="tab-stack-templates" class="px-3 py-1.5 rounded-lg text-xs font-medium transition-all duration-200 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-900/50">
+            Stacks
           </button>
-          <button onclick="switchTab('motion-templates')" id="tab-motion-templates" class="px-3 py-1.5 rounded-md text-xs font-medium transition-all text-zinc-400 hover:text-zinc-200">
-            Motion Apps
+          <button onclick="switchTab('motion-templates')" id="tab-motion-templates" class="px-3 py-1.5 rounded-lg text-xs font-medium transition-all duration-200 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-900/50">
+            Motion
           </button>
-          <button onclick="switchTab('library')" id="tab-library" class="px-3 py-1.5 rounded-md text-xs font-medium transition-all text-zinc-400 hover:text-zinc-200">
-            Prompt Vault
+          <button onclick="switchTab('library')" id="tab-library" class="px-3 py-1.5 rounded-lg text-xs font-medium transition-all duration-200 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-900/50">
+            Vault
           </button>
         </nav>
       </div>
+
     </div>
   </header>
 
   <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
 
     <section id="view-starter-projects" class="space-y-6">
-      <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-6 flex justify-between items-start">
-        <div>
-          <h1 class="text-xl font-bold text-zinc-100 mb-2">Production Starter Blueprints</h1>
-          <p class="text-sm text-zinc-400">Comprehensive, zero-dependency project specs designed for one-shot LLM orchestration across tech and knowledge work.</p>
+      <div class="glass-panel rounded-2xl p-6 flex justify-between items-start border border-zinc-800/80 shadow-2xl">
+        <div class="space-y-1">
+          <h1 class="text-xl font-bold text-white tracking-tight">Production Starter Blueprints</h1>
+          <p class="text-xs text-zinc-400">Zero-dependency, high-impact prompt specifications engineered for single-file browser orchestration.</p>
         </div>
-        <span class="text-xs font-mono px-3 py-1 rounded-full bg-emerald-950 text-emerald-400 border border-emerald-800">12 Active Projects</span>
+        <span class="text-[11px] font-mono px-3 py-1 rounded-full bg-emerald-950/60 text-emerald-400 border border-emerald-800/50 shadow-inner">
+          12 Blueprints Loaded
+        </span>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="starter-projects-grid"></div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5" id="starter-projects-grid"></div>
     </section>
 
     <section id="view-greenfield" class="hidden space-y-6">
-      <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-6">
-        <h1 class="text-xl font-bold text-zinc-100 mb-2">Greenfield Workflow Pipeline</h1>
-        <p class="text-sm text-zinc-400">Spec generation, prompt planning, and TDD execution loops.</p>
+      <div class="glass-panel rounded-2xl p-6 border border-zinc-800/80">
+        <h1 class="text-xl font-bold text-white">Greenfield Workflow Pipeline</h1>
+        <p class="text-xs text-zinc-400 mt-1">Iterative specification synthesis, prompt sequencing, and TDD execution loops.</p>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
-          <button onclick="selectGStep(1)" id="gstep-btn-1" class="text-left p-4 rounded-lg border border-emerald-500/50 bg-emerald-950/20 transition-all">
-            <div class="text-xs font-mono text-emerald-400 font-semibold mb-1">STEP 01 • BRAINSTORM</div>
-            <div class="text-sm font-semibold text-zinc-200">Idea Honing & Spec</div>
+          <button onclick="selectGStep(1)" id="gstep-btn-1" class="text-left p-4 rounded-xl border border-emerald-500/40 bg-emerald-950/20 transition-all">
+            <div class="text-[10px] font-mono text-emerald-400 font-semibold mb-1">STEP 01 • BRAINSTORM</div>
+            <div class="text-sm font-semibold text-zinc-100">Idea Honing & Spec</div>
           </button>
-          <button onclick="selectGStep(2)" id="gstep-btn-2" class="text-left p-4 rounded-lg border border-zinc-800 bg-zinc-950/40 opacity-70 hover:opacity-100 transition-all">
-            <div class="text-xs font-mono text-zinc-400 font-semibold mb-1">STEP 02 • PLANNING</div>
-            <div class="text-sm font-semibold text-zinc-200">Blueprint & Prompt Plan</div>
+          <button onclick="selectGStep(2)" id="gstep-btn-2" class="text-left p-4 rounded-xl border border-zinc-800 bg-zinc-950/40 opacity-70 hover:opacity-100 transition-all">
+            <div class="text-[10px] font-mono text-zinc-400 font-semibold mb-1">STEP 02 • PLANNING</div>
+            <div class="text-sm font-semibold text-zinc-100">Blueprint & Prompt Plan</div>
           </button>
-          <button onclick="selectGStep(3)" id="gstep-btn-3" class="text-left p-4 rounded-lg border border-zinc-800 bg-zinc-950/40 opacity-70 hover:opacity-100 transition-all">
-            <div class="text-xs font-mono text-zinc-400 font-semibold mb-1">STEP 03 • EXECUTION</div>
-            <div class="text-sm font-semibold text-zinc-200">Loop & Verification</div>
+          <button onclick="selectGStep(3)" id="gstep-btn-3" class="text-left p-4 rounded-xl border border-zinc-800 bg-zinc-950/40 opacity-70 hover:opacity-100 transition-all">
+            <div class="text-[10px] font-mono text-zinc-400 font-semibold mb-1">STEP 03 • EXECUTION</div>
+            <div class="text-sm font-semibold text-zinc-100">Loop & Verification</div>
           </button>
         </div>
       </div>
@@ -100,25 +155,25 @@
     </section>
 
     <section id="view-brownfield" class="hidden space-y-6">
-      <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-6">
-        <h1 class="text-xl font-bold text-zinc-100 mb-2">Brownfield Iteration Pipeline</h1>
-        <p class="text-sm text-zinc-400">Context packing, code reviews, issue extraction, and missing test suites.</p>
+      <div class="glass-panel rounded-2xl p-6 border border-zinc-800/80">
+        <h1 class="text-xl font-bold text-white">Brownfield Iteration Pipeline</h1>
+        <p class="text-xs text-zinc-400 mt-1">Codebase ingestion, architecture audits, issue mapping, and unit test expansion.</p>
         <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mt-6">
-          <button onclick="selectBStep(1)" id="bstep-btn-1" class="text-left p-4 rounded-lg border border-emerald-500/50 bg-emerald-950/20 transition-all">
-            <div class="text-xs font-mono text-emerald-400 font-semibold mb-1">01 • BUNDLE</div>
-            <div class="text-sm font-semibold text-zinc-200">Repomix Context</div>
+          <button onclick="selectBStep(1)" id="bstep-btn-1" class="text-left p-4 rounded-xl border border-emerald-500/40 bg-emerald-950/20 transition-all">
+            <div class="text-[10px] font-mono text-emerald-400 font-semibold mb-1">01 • BUNDLE</div>
+            <div class="text-sm font-semibold text-zinc-100">Repomix Context</div>
           </button>
-          <button onclick="selectBStep(2)" id="bstep-btn-2" class="text-left p-4 rounded-lg border border-zinc-800 bg-zinc-950/40 opacity-70 hover:opacity-100 transition-all">
-            <div class="text-xs font-mono text-zinc-400 font-semibold mb-1">02 • AUDIT</div>
-            <div class="text-sm font-semibold text-zinc-200">Code Review</div>
+          <button onclick="selectBStep(2)" id="bstep-btn-2" class="text-left p-4 rounded-xl border border-zinc-800 bg-zinc-950/40 opacity-70 hover:opacity-100 transition-all">
+            <div class="text-[10px] font-mono text-zinc-400 font-semibold mb-1">02 • AUDIT</div>
+            <div class="text-sm font-semibold text-zinc-100">Code Review</div>
           </button>
-          <button onclick="selectBStep(3)" id="bstep-btn-3" class="text-left p-4 rounded-lg border border-zinc-800 bg-zinc-950/40 opacity-70 hover:opacity-100 transition-all">
-            <div class="text-xs font-mono text-zinc-400 font-semibold mb-1">03 • ISSUES</div>
-            <div class="text-sm font-semibold text-zinc-200">GitHub Issues</div>
+          <button onclick="selectBStep(3)" id="bstep-btn-3" class="text-left p-4 rounded-xl border border-zinc-800 bg-zinc-950/40 opacity-70 hover:opacity-100 transition-all">
+            <div class="text-[10px] font-mono text-zinc-400 font-semibold mb-1">03 • ISSUES</div>
+            <div class="text-sm font-semibold text-zinc-100">GitHub Issues</div>
           </button>
-          <button onclick="selectBStep(4)" id="bstep-btn-4" class="text-left p-4 rounded-lg border border-zinc-800 bg-zinc-950/40 opacity-70 hover:opacity-100 transition-all">
-            <div class="text-xs font-mono text-zinc-400 font-semibold mb-1">04 • TESTS</div>
-            <div class="text-sm font-semibold text-zinc-200">Missing Tests</div>
+          <button onclick="selectBStep(4)" id="bstep-btn-4" class="text-left p-4 rounded-xl border border-zinc-800 bg-zinc-950/40 opacity-70 hover:opacity-100 transition-all">
+            <div class="text-[10px] font-mono text-zinc-400 font-semibold mb-1">04 • TESTS</div>
+            <div class="text-sm font-semibold text-zinc-100">Missing Tests</div>
           </button>
         </div>
       </div>
@@ -126,71 +181,72 @@
     </section>
 
     <section id="view-stack-templates" class="hidden space-y-6">
-      <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-6">
-        <h1 class="text-xl font-bold text-zinc-100 mb-2">Core Tech Stack System Prompts</h1>
-        <p class="text-sm text-zinc-400">Pre-configured operational prompts strictly constrained to single-file client implementations, edge platforms, and local browser state.</p>
+      <div class="glass-panel rounded-2xl p-6 border border-zinc-800/80">
+        <h1 class="text-xl font-bold text-white">System Stack Architecture Prompts</h1>
+        <p class="text-xs text-zinc-400 mt-1">Operational prompts strictly enforcing zero-dependency, serverless edge, and client-side persistence limits.</p>
       </div>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="stack-templates-grid"></div>
     </section>
 
     <section id="view-motion-templates" class="hidden space-y-6">
-      <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-6">
-        <h1 class="text-xl font-bold text-zinc-100 mb-2">Interactive & Motion App Templates</h1>
-        <p class="text-sm text-zinc-400">Production-ready prompt blueprints for orchestrating animations, 3D canvases, and micro-interactions.</p>
+      <div class="glass-panel rounded-2xl p-6 border border-zinc-800/80">
+        <h1 class="text-xl font-bold text-white">Interactive Motion Engine Prompts</h1>
+        <p class="text-xs text-zinc-400 mt-1">Choreography specifications for GSAP 3, Three.js WebGL, Anime.js, and Theatre.js director suites.</p>
       </div>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="motion-templates-grid"></div>
     </section>
 
     <section id="view-library" class="hidden space-y-6">
-      <div class="flex justify-between items-center">
+      <div class="glass-panel rounded-2xl p-6 border border-zinc-800/80 flex justify-between items-center">
         <div>
-          <h1 class="text-xl font-bold text-zinc-100">Master Prompt Vault</h1>
-          <p class="text-sm text-zinc-400">All workflow core prompts, operational templates, and project blueprints.</p>
+          <h1 class="text-xl font-bold text-white">Master Prompt Vault</h1>
+          <p class="text-xs text-zinc-400 mt-1">Raw repository of all operational core prompts and template configurations.</p>
         </div>
       </div>
-      <div id="vault-list" class="space-y-6"></div>
+      <div id="vault-list" class="space-y-4"></div>
     </section>
 
   </main>
 
-  <div id="modal-howto" class="fixed inset-0 bg-zinc-950/80 backdrop-blur-sm z-50 flex items-center justify-center hidden p-4">
-    <div class="bg-zinc-900 border border-zinc-800 rounded-2xl max-w-2xl w-full p-6 space-y-6 shadow-2xl overflow-y-auto max-h-[90vh]">
-      <div class="flex justify-between items-center border-b border-zinc-800 pb-4">
+  <div id="modal-howto" class="fixed inset-0 bg-zinc-950/80 backdrop-blur-md z-50 flex items-center justify-center hidden p-4">
+    <div class="glass-panel rounded-2xl max-w-xl w-full p-6 space-y-5 shadow-2xl border border-zinc-700/50">
+      <div class="flex justify-between items-center border-b border-zinc-800/80 pb-4">
         <div class="flex items-center space-x-2">
-          <span class="text-emerald-400 text-lg">🚀</span>
-          <h2 class="text-lg font-bold text-zinc-100">Vibe Coding Step-by-Step Guide</h2>
+          <span class="text-emerald-400 text-lg">⚡</span>
+          <h2 class="text-base font-bold text-white">Operational Workflow Guide</h2>
         </div>
-        <button onclick="toggleModal('modal-howto')" class="text-zinc-400 hover:text-zinc-100 text-sm font-mono p-1">✕</button>
+        <button onclick="toggleModal('modal-howto')" class="text-zinc-400 hover:text-white text-xs font-mono p-1 transition-colors">✕</button>
       </div>
 
-      <div class="space-y-4 text-xs text-zinc-300 leading-relaxed">
-        <div class="flex items-start space-x-3 bg-zinc-950 p-3.5 rounded-lg border border-zinc-850">
-          <span class="bg-emerald-500 text-zinc-950 font-mono font-bold px-2 py-0.5 rounded text-xs">01</span>
+      <div class="space-y-3.5 text-xs text-zinc-300 leading-relaxed">
+        <div class="flex items-start space-x-3 bg-zinc-950/60 p-3.5 rounded-xl border border-zinc-800/60">
+          <span class="bg-emerald-500 text-zinc-950 font-mono font-bold px-2 py-0.5 rounded text-[10px]">01</span>
           <div>
-            <strong class="text-zinc-100 block text-sm mb-1">Select Starter Blueprint</strong>
-            Choose from the 12 comprehensive project blueprints in the <strong>Starter Projects</strong> view to kickstart tools for knowledge work, AI systems, analytics, and edge workers.
+            <strong class="text-zinc-100 block text-xs font-semibold mb-0.5">Select a Project Blueprint</strong>
+            Browse the <strong>Starter Projects</strong> matrix to choose a targeted specification for your desired utility or tool stack.
           </div>
         </div>
 
-        <div class="flex items-start space-x-3 bg-zinc-950 p-3.5 rounded-lg border border-zinc-850">
-          <span class="bg-emerald-500 text-zinc-950 font-mono font-bold px-2 py-0.5 rounded text-xs">02</span>
+        <div class="flex items-start space-x-3 bg-zinc-950/60 p-3.5 rounded-xl border border-zinc-800/60">
+          <span class="bg-emerald-500 text-zinc-950 font-mono font-bold px-2 py-0.5 rounded text-[10px]">02</span>
           <div>
-            <strong class="text-zinc-100 block text-sm mb-1">Copy and Execute</strong>
-            Click <strong>Copy Blueprint Prompt</strong> to copy the prompt, feed it to Gemini or Claude, and run the single-file result directly in your browser.
+            <strong class="text-zinc-100 block text-xs font-semibold mb-0.5">Copy & Execute Prompt</strong>
+            Click <strong>Copy Prompt</strong> to copy the prompt, pass it directly into Claude or Gemini, and deploy the single-file result instantly.
           </div>
         </div>
       </div>
 
-      <div class="pt-2 border-t border-zinc-800 flex justify-end">
-        <button onclick="toggleModal('modal-howto')" class="px-4 py-2 bg-emerald-500 text-zinc-950 font-semibold text-xs rounded-lg hover:bg-emerald-400 transition-all font-mono">Got It</button>
+      <div class="pt-3 border-t border-zinc-800/80 flex justify-end">
+        <button onclick="toggleModal('modal-howto')" class="px-4 py-2 bg-emerald-500 hover:bg-emerald-400 text-zinc-950 font-semibold text-xs rounded-lg transition-all font-mono glow-emerald">
+          Close Guide
+        </button>
       </div>
     </div>
   </div>
 
   <script>
-    // Version Control Management (v1.3.0 for 9 new Starter Projects)
     let major = 1;
-    let minor = 3;
+    let minor = 4;
     let patch = 0;
 
     function incrementVersion() {
@@ -198,213 +254,81 @@
       const verString = `v${major}.${minor}.${patch}`;
       const badge = document.getElementById('version-badge');
       badge.textContent = verString;
-      badge.classList.add('bg-emerald-400', 'text-zinc-950');
+      badge.className = "text-[10px] font-mono px-2 py-0.5 rounded-full bg-emerald-400 text-zinc-950 font-bold transition-all duration-300";
       setTimeout(() => {
-        badge.classList.remove('bg-emerald-400', 'text-zinc-950');
-      }, 300);
+        badge.className = "text-[10px] font-mono px-2 py-0.5 rounded-full bg-emerald-950/80 text-emerald-400 border border-emerald-800/60 transition-all duration-300";
+      }, 400);
     }
 
     function toggleModal(id) {
       document.getElementById(id).classList.toggle('hidden');
     }
 
-    // Comprehensive Starter Project Blueprints Repository
     const STARTERS = {
-      p1: {
-        title: "Markdown Executive Dashboard",
-        type: "Utility",
-        stack: "Single-File",
-        desc: "Client-side app parsing local markdown files to auto-render interactive metrics, data charts, and kanban boards completely offline.",
-        prompt: `Create a single-file Markdown Executive Dashboard using vanilla HTML, CSS, and JS with zero dependencies.
-RULES:
-1. Provide a drop zone for uploading or pasting markdown content.
-2. Automatically parse tables, task lists, and metric headers (# Key Performance Metrics).
-3. Render visual charts using native SVG/HTML progress meters and an interactive Kanban task board view.
-4. Provide dark mode by default and maintain zero npm build steps.`
-      },
-      p2: {
-        title: "Zero-Cost Image Metadata Extractor",
-        type: "AI / Serverless",
-        stack: "Worker + Gemini",
-        desc: "Cloudflare Worker that takes uploaded images, passes them directly to Gemini 1.5 Flash REST API, and outputs structured JSON tags.",
-        prompt: `Create a Cloudflare Worker backend script that accepts multipart image uploads and extracts vision metadata using the Google Gemini REST API.
-RULES:
-1. Pure ES module format for Cloudflare Workers.
-2. Convert uploaded image payload to base64 and execute a direct REST call to gemini-1.5-flash.
-3. Handle rate limits with retry backoff and return clean JSON response containing tags, summary, and color analysis.`
-      },
-      p3: {
-        title: "Micro-SaaS Analytics Beacon",
-        type: "Full-Stack Edge",
-        stack: "Supabase CDN",
-        desc: "Single-file JS tracking script and companion dashboard communicating with Supabase RLS tables for real-time page metrics.",
-        prompt: `Create a single-file Web Analytics Beacon and Dashboard connected to Supabase via CDN script.
-RULES:
-1. Client tracker script (under 1KB) sending page view, referrer, and performance timing to Supabase via window.supabase client.
-2. Real-time dashboard interface rendering pageview trends and active session counts.
-3. Include SQL schema setup instructions for Supabase Row Level Security (RLS).`
-      },
-      p4: {
-        title: "Local-First Semantic RAG Workbench",
-        type: "Knowledge Work",
-        stack: "Gemini REST + LocalStorage",
-        desc: "Client-side workspace for ingesting long PDFs/text docs, creating chunked context stores locally, and performing grounded Q&A.",
-        prompt: `Create a single-file, local-first Knowledge Synthesis & Grounded Q&A Workbench using vanilla HTML, CSS, and JS.
-RULES:
-1. Provide a drag-and-drop document reader (TXT, Markdown, CSV, raw text).
-2. Client-side text chunking engine (500-word sliding window with overlap).
-3. Interactive query console that connects via browser fetch to the Gemini 1.5 Flash API key stored locally in localStorage.
-4. Top-3 semantic relevance match highlighter using client-side TF-IDF/cosine similarity before attaching context to the API prompt.
-5. Clean Apple/Airbnb minimalist dark mode visual aesthetic.`
-      },
-      p5: {
-        title: "Context Compression Studio",
-        type: "Tech Work / AI Infrastructure",
-        stack: "Vanilla JS + Web Workers",
-        desc: "Utility for AI systems engineers to compress large codebase contexts, filter AST waste, and estimate LLM token budgets.",
-        prompt: `Create a single-file Context Compression & Token Budget Studio for prompt engineering and LLM context optimization.
-RULES:
-1. Drag-and-drop multi-file code uploader (JS, TS, Python, SQL, Markdown).
-2. Stripping options: Remove comments, strip whitespace, condense import statements, and extract signature-only function stubs.
-3. Real-time token estimator (Cl100k / Llama token estimation algorithms in pure JS).
-4. Side-by-side Diff View comparing raw code vs. compressed payload with percentage savings calculation.
-5. One-click "Copy for LLM System Prompt" button.`
-      },
-      p6: {
-        title: "Edge Schema & SQL Migration Generator",
-        type: "Tech Work / Backend",
-        stack: "Supabase + Cloudflare D1",
-        desc: "Visual schema designer converting raw JSON, TypeScript interfaces, or visual nodes into Supabase RLS and D1 SQL migrations.",
-        prompt: `Create a single-file Edge Database Schema & SQL Migration Generator targeting Supabase (Postgres) and Cloudflare D1 (SQLite).
-RULES:
-1. Input interface: Accepts raw JSON objects, TypeScript interfaces, or plain entity lists.
-2. Automatic generation of optimized SQL CREATE TABLE statements with appropriate primary keys, foreign keys, and indexes.
-3. Generates complete Row-Level Security (RLS) policies for Supabase and dialect-specific SQLite migrations for D1.
-4. Export buttons for 'migration.sql' and TypeScript database type definitions.`
-      },
-      p7: {
-        title: "LLM Speculative Router Evaluator",
-        type: "Tech Work / Systems Bench",
-        stack: "Groq REST + Gemini REST",
-        desc: "Benchmarking workbench evaluating speed, latency, and cost differences between Groq and Gemini Free API endpoints.",
-        prompt: `Create a single-file Diagnostic Benchmarking Utility comparing low-latency LLM provider inference (Groq vs Gemini API).
-RULES:
-1. Dual execution mode: Sends identical prompt in parallel to Groq REST API (e.g. Llama-3) and Gemini 1.5 Flash REST API.
-2. High-precision performance measurement: Time to First Token (TTFT), Total Ingestion Speed (Tokens/sec), and HTTP Latency.
-3. Real-time comparison table and visual bar charts rendered with standard CSS/SVG.
-4. Export evaluation results to JSON.`
-      },
-      p8: {
-        title: "Digital Exhaust Capture Utility",
-        type: "Knowledge Work / Productivity",
-        stack: "Vanilla JS + IndexedDB",
-        desc: "Capture daily drafts, terminal logs, and notes locally into an IndexedDB database for background auto-summarization.",
-        prompt: `Create a single-file Local-First Knowledge Exhaust Collector & Auto-Synthesizer.
-RULES:
-1. Quick-capture input console for pasting terminal logs, email drafts, meeting scratchpads, or raw thoughts.
-2. Persist entries locally in browser IndexedDB with tag filtering and search.
-3. Background "Batch Synthesis" action that calls Gemini 1.5 Flash to synthesize raw daily exhaust into structured Weekly Status Reports (Executive Summary, Action Items, Key Learnings).
-4. Export to clean Markdown format.`
-      },
-      p9: {
-        title: "Open API Spec & Edge Mock Server",
-        type: "Tech Work / API Engineering",
-        stack: "Cloudflare Workers / Vanilla JS",
-        desc: "Web workspace for drafting OpenAPI 3.0 specs and instantly auto-generating client-side fetch code and mock edge handlers.",
-        prompt: `Create a single-file OpenAPI Spec Visual Editor and Mock API Generator.
-RULES:
-1. Split-pane editor: Left pane for pasting or drafting OpenAPI 3.0 YAML/JSON, right pane for interactive endpoints inspection.
-2. Auto-generate client-side JavaScript fetch wrappers for all endpoints.
-3. Auto-generate copy-pasteable Cloudflare Worker backend code that returns mock JSON data matching the schema for testing.`
-      },
-      p10: {
-        title: "System Architecture Diagram Spec Generator",
-        type: "Tech Work / Architecture",
-        stack: "Vanilla JS + SVG Render",
-        desc: "Generate CloudSpec JSON prompts and render clean, editable SVG system architecture diagrams with zero dependencies.",
-        prompt: `Create a single-file Visual System Architecture Diagram Generator and Spec Prompting Tool.
-RULES:
-1. Visual form builder to define architecture components (Cloudflare Workers, Supabase Postgres, R2 Storage, Edge Routers, Clients).
-2. Live SVG canvas rendering connected node diagrams with draggable elements and directional arrows.
-3. Auto-generate structured LLM System Specification Prompts that describe the visually designed architecture in precise detail for AI code generators.`
-      },
-      p11: {
-        title: "Real-Time Log Parser & Error Root-Cause Tool",
-        type: "Tech Work / DevOps",
-        stack: "Gemini REST + Local Regex",
-        desc: "Drop in messy server/worker logs to automatically categorize error clusters, extract stack traces, and analyze root causes.",
-        prompt: `Create a single-file Log Diagnostics & Root-Cause Analysis Console.
-RULES:
-1. Paste-bin/upload interface for high-volume text log files (Cloudflare Worker logs, Nginx logs, browser console logs).
-2. Regex-based error clustering: Group similar stack traces and display frequency metrics.
-3. "Root Cause Analysis" button: Sends error clusters directly to Gemini REST API to explain cause and recommend fix steps.
-4. Filter by severity level (INFO, WARN, ERROR, FATAL).`
-      },
-      p12: {
-        title: "Atomic Micro-Task Breakdown Utility",
-        type: "Knowledge Work / Planning",
-        stack: "Vanilla JS / LocalStorage",
-        desc: "Break macro technical goals into single-step micro-tasks with time estimates, markdown export, and local state.",
-        prompt: `Create a single-file Atomic Task Runner for breaking high-level technical goals into actionable micro-tasks.
-RULES:
-1. Goal input field ("e.g. Deploy Cloudflare Worker with D1 binding").
-2. LLM integration or local heuristic model that breaks down the macro goal into 15-minute actionable execution steps.
-3. Task management UI with checkboxes, estimated completion timer, and local progress tracking via LocalStorage.
-4. One-click export to todo.md or Markdown checklist.`
-      }
+      p1: { title: "Markdown Executive Dashboard", type: "Utility", stack: "Single-File", desc: "Parses local markdown drop-files to render metrics, SVG progress charts, and active Kanban boards entirely offline.", prompt: "Create a single-file Markdown Executive Dashboard using vanilla HTML, CSS, and JS with zero dependencies.\nRULES:\n1. Drop zone for markdown.\n2. Parse headers & tables.\n3. Render visual charts using native SVG/HTML meters and a Kanban task board." },
+      p2: { title: "Zero-Cost Vision Metadata Extractor", type: "AI / Serverless", stack: "Worker + Gemini", desc: "Cloudflare Worker accepting image uploads, generating structured JSON tags and color analysis via Gemini REST API.", prompt: "Create a Cloudflare Worker script that accepts image uploads and extracts vision metadata using Gemini REST API.\nRULES:\n1. Standalone ES module.\n2. Convert image payload to base64 for gemini-1.5-flash.\n3. Return clean JSON response." },
+      p3: { title: "Micro-SaaS Analytics Beacon", type: "Full-Stack Edge", stack: "Supabase CDN", desc: "1KB tracking script and lightweight analytics dashboard communicating directly with Supabase RLS tables.", prompt: "Create a single-file Web Analytics Beacon and Dashboard connected to Supabase via CDN script.\nRULES:\n1. Lightweight client tracking beacon.\n2. Real-time metric dashboard.\n3. Include SQL schema setup with RLS." },
+      p4: { title: "Local Grounded RAG Workbench", type: "Knowledge Work", stack: "Gemini + LocalStorage", desc: "Client-side document chunking engine, local semantic matching, and grounded context Q&A console.", prompt: "Create a single-file Knowledge Grounded Q&A Workbench.\nRULES:\n1. Text drop zone with client-side sliding chunker.\n2. Cosine similarity context match.\n3. Direct REST call to Gemini 1.5 Flash." },
+      p5: { title: "Context Compression Studio", type: "Tech Work", stack: "Vanilla JS / Web Worker", desc: "Strips AST waste, imports, and comments from codebase dumps to optimize token payload for LLM prompts.", prompt: "Create a single-file LLM Context Compression Studio.\nRULES:\n1. Multi-file code uploader.\n2. Strip comments, whitespace, and condense imports.\n3. Real-time token savings diff view." },
+      p6: { title: "Edge SQL Migration Generator", type: "Tech Work", stack: "Supabase + D1", desc: "Visual schema tool mapping raw JSON structures directly into Supabase RLS and Cloudflare D1 migrations.", prompt: "Create a single-file Database Schema & SQL Migration Generator.\nRULES:\n1. JSON/TypeScript schema input.\n2. Output Postgres (Supabase) and SQLite (D1) migrations.\n3. Auto-generate RLS policies." },
+      p7: { title: "LLM Speculative Router Bench", type: "Systems Bench", stack: "Groq + Gemini REST", desc: "Parallel benchmark measuring TTFT, latency, and tokens/sec across Groq and Gemini Free API endpoints.", prompt: "Create a single-file LLM Provider Benchmarking Utility.\nRULES:\n1. Parallel execution to Groq REST and Gemini REST APIs.\n2. Measure TTFT and Tokens/sec.\n3. Render CSS latency charts." },
+      p8: { title: "Digital Exhaust Collector", type: "Productivity", stack: "IndexedDB + AI", desc: "Local-first log and draft aggregator auto-synthesizing daily notes into structured weekly status reports.", prompt: "Create a single-file Knowledge Exhaust Collector & Synthesizer.\nRULES:\n1. Terminal log and draft input console.\n2. IndexedDB local storage.\n3. Batch call to Gemini Flash for Weekly Status output." },
+      p9: { title: "OpenAPI Spec & Edge Mock Engine", type: "API Engineering", stack: "Cloudflare Workers", desc: "Drafts OpenAPI 3.0 schemas and auto-generates client fetch code along with mock Cloudflare Worker handlers.", prompt: "Create a single-file OpenAPI Spec Visual Editor and Mock API Generator.\nRULES:\n1. OpenAPI 3.0 schema parsing.\n2. Auto-generate JS fetch wrappers.\n3. Generate mock Cloudflare Worker response scripts." },
+      p10: { title: "Architecture Spec & SVG Generator", type: "Architecture", stack: "Vanilla JS + SVG", desc: "Interactive canvas rendering clean architecture node diagrams while compiling structured JSON system specs.", prompt: "Create a single-file Visual System Architecture Diagram Generator.\nRULES:\n1. Node component visual builder.\n2. Render live connected SVG canvas.\n3. Output structured LLM System Specification Prompts." },
+      p11: { title: "Log Diagnostics & Root-Cause Console", type: "DevOps", stack: "Gemini REST", desc: "Regex log parser clustering error stack traces and performing automated Gemini root-cause analysis.", prompt: "Create a single-file Log Diagnostics & Root-Cause Console.\nRULES:\n1. Server log parser with stack trace grouping.\n2. Gemini REST API integration for automated error root-cause diagnosis." },
+      p12: { title: "Atomic Task Execution Runner", type: "Planning", stack: "LocalStorage", desc: "Decomposes high-level technical goals into actionable 15-minute micro-tasks with timer tracking.", prompt: "Create a single-file Atomic Task Runner for macro goals.\nRULES:\n1. Decompose technical goals into 15-minute micro-steps.\n2. LocalStorage progress management.\n3. Markdown export." }
     };
 
     const PROMPTS = {
-      g1_1: `Ask me one question at a time so we can develop a thorough, step-by-step spec for this idea. Each question should build on my previous answers, and our end goal is to have a detailed specification I can hand off to a developer. Let's do this iteratively and dig into every relevant detail. Remember, only one question at a time. Here's the idea: <IDEA>`,
-      g1_2: `Now that we've wrapped up the brainstorming process, can you compile our findings into a comprehensive, developer-ready specification? Include all relevant requirements, architecture choices, data handling details, error handling strategies, and a testing plan so a developer can immediately begin implementation.`,
-      g2_tdd: `Draft a detailed, step-by-step blueprint for building this project. Then, once you have a solid plan, break it down into small, iterative chunks that build on each other. Look at these chunks and then go another round to break it into small steps. Review the results and make sure that the steps are small enough to be implemented safely with strong testing, but big enough to move the project forward. Iterate until you feel that the steps are right sized for this project. From here you should have the foundation to provide a series of prompts for a code-generation LLM that will implement each step in a test-driven manner. Prioritize best practices, incremental progress, and early testing, ensuring no big jumps in complexity at any stage. Make sure that each prompt builds on the previous prompts, and ends with wiring things together. There should be no hanging or orphaned code that isn't integrated into a previous step. Make sure and separate each prompt section. Use markdown. Each prompt should be tagged as text using code tags. The goal is to output prompts, but context, etc is important as well.\n<SPEC>`,
-      b_review: `You are a senior developer. Your job is to do a thorough code review of this code. You should write it up and output markdown. Include line numbers, and contextual info. Your code review will be passed to another teammate, so be thorough. Think deeply before writing the code review. Review every part, and don't hallucinate.`,
-      b_issues: `You are a senior developer. Your job is to review this code, and write out the top issues that you see with the code. It could be bugs, design choices, or code cleanliness issues. You should be specific, and be very good. Do Not Hallucinate. Think quietly to yourself, then act - write the issues. The issues will be given to a developer to executed on, so they should be in a format that is compatible with github issues`,
-      b_tests: `You are a senior developer. Your job is to review this code, and write out a list of missing test cases, and code tests that should exist. You should be specific, and be very good. Do Not Hallucinate.`,
+      g1_1: "Ask me one question at a time so we can develop a thorough, step-by-step spec for this idea. Each question should build on my previous answers, and our end goal is to have a detailed specification I can hand off to a developer. Let's do this iteratively and dig into every relevant detail. Remember, only one question at a time. Here's the idea: <IDEA>",
+      g2_tdd: "Draft a detailed, step-by-step blueprint for building this project. Then, once you have a solid plan, break it down into small, iterative chunks that build on each other. Look at these chunks and then go another round to break it into small steps. Review the results and make sure that the steps are small enough to be implemented safely with strong testing, but big enough to move the project forward. Iterate until you feel that the steps are right sized for this project. From here you should have the foundation to provide a series of prompts for a code-generation LLM that will implement each step in a test-driven manner. Prioritize best practices, incremental progress, and early testing, ensuring no big jumps in complexity at any stage. Make sure that each prompt builds on the previous prompts, and ends with wiring things together. There should be no hanging or orphaned code that isn't integrated into a previous step. Make sure and separate each prompt section. Use markdown. Each prompt should be tagged as text using code tags. The goal is to output prompts, but context, etc is important as well.\n<SPEC>",
+      b_review: "You are a senior developer. Your job is to do a thorough code review of this code. You should write it up and output markdown. Include line numbers, and contextual info. Your code review will be passed to another teammate, so be thorough. Think deeply before writing the code review. Review every part, and don't hallucinate.",
+      b_issues: "You are a senior developer. Your job is to review this code, and write out the top issues that you see with the code. It could be bugs, design choices, or code cleanliness issues. You should be specific, and be very good. Do Not Hallucinate. Think quietly to yourself, then act - write the issues. The issues will be given to a developer to executed on, so they should be in a format that is compatible with github issues",
+      b_tests: "You are a senior developer. Your job is to review this code, and write out a list of missing test cases, and code tests that should exist. You should be specific, and be very good. Do Not Hallucinate.",
 
-      tmpl_vanilla: `You are an expert web developer specializing in terminal-free, single-file browser application architectures.\nRULES:\n1. Complete, single-file index.html.\n2. Vanilla JS (ES6+), native CSS/Tailwind CDN. Zero build tools.\n3. State-driven, client-side execution.`,
-      tmpl_worker: `You are an expert Cloudflare Workers backend engineer.\nRULES:\n1. Standalone ES module (export default { fetch }).\n2. No Node.js built-ins or bundler dependencies.\n3. Handle CORS preflight explicitly.`,
-      tmpl_supabase: `You are an expert in client-side Supabase integrations without build tooling.\nRULES:\n1. Import Supabase JS client via CDN tag.\n2. Initialize window.supabase.createClient.\n3. Explicit error handling for RLS failures.`,
-      tmpl_gemini: `You are an expert in direct REST API calls to Google Gemini Free API.\nRULES:\n1. Standard browser fetch directly to gemini-1.5-flash.\n2. Raw POST request with JSON payload.\n3. Handle rate limits (429) with retry backoff.`,
+      tmpl_vanilla: "You are an expert web developer specializing in terminal-free, single-file browser application architectures.\nRULES:\n1. Complete, single-file index.html.\n2. Vanilla JS (ES6+), native CSS/Tailwind CDN. Zero build tools.\n3. State-driven, client-side execution.",
+      tmpl_worker: "You are an expert Cloudflare Workers backend engineer.\nRULES:\n1. Standalone ES module (export default { fetch }).\n2. No Node.js built-ins or bundler dependencies.\n3. Handle CORS preflight explicitly.",
+      tmpl_supabase: "You are an expert in client-side Supabase integrations without build tooling.\nRULES:\n1. Import Supabase JS client via CDN tag.\n2. Initialize window.supabase.createClient.\n3. Explicit error handling for RLS failures.",
+      tmpl_gemini: "You are an expert in direct REST API calls to Google Gemini Free API.\nRULES:\n1. Standard browser fetch directly to gemini-1.5-flash.\n2. Raw POST request with JSON payload.\n3. Handle rate limits (429) with retry backoff.",
 
-      tmpl_gsap: `You are an expert UI developer specializing in high-performance GSAP 3 animations.\nRULES:\n1. Load GSAP & ScrollTrigger via CDN script.\n2. Construct timeline-driven UI components with play/pause controls.\n3. Prioritize hardware-accelerated transforms.`,
-      tmpl_three: `You are an expert WebGL developer specializing in single-file Three.js interactive 3D apps.\nRULES:\n1. Load Three.js & GSAP via CDN.\n2. Interactive 3D canvas with raycasting, lighting, and mesh generation.\n3. Single-file architecture with zero build steps.`,
-      tmpl_anime: `You are an expert interactive developer specializing in micro-interactions with Anime.js.\nRULES:\n1. Load Anime.js via CDN.\n2. Staggered grid animations, keyframe arrays, SVG path morphing.\n3. Single-file index.html application.`,
-      tmpl_theatre: `You are an expert 3D motion director specializing in Theatre.js + Three.js choreography.\nRULES:\n1. Import Theatre Core & Studio scripts via CDN.\n2. Bind Theatre sheet properties to WebGL mesh properties.\n3. Deliver single-file index.html application.`
+      tmpl_gsap: "You are an expert UI developer specializing in high-performance GSAP 3 animations.\nRULES:\n1. Load GSAP & ScrollTrigger via CDN script.\n2. Construct timeline-driven UI components with play/pause controls.\n3. Prioritize hardware-accelerated transforms.",
+      tmpl_three: "You are an expert WebGL developer specializing in single-file Three.js interactive 3D apps.\nRULES:\n1. Load Three.js & GSAP via CDN.\n2. Interactive 3D canvas with raycasting, lighting, and mesh generation.\n3. Single-file architecture with zero build steps.",
+      tmpl_anime: "You are an expert interactive developer specializing in micro-interactions with Anime.js.\nRULES:\n1. Load Anime.js via CDN.\n2. Staggered grid animations, keyframe arrays, SVG path morphing.\n3. Single-file index.html application.",
+      tmpl_theatre: "You are an expert 3D motion director specializing in Theatre.js + Three.js choreography.\nRULES:\n1. Import Theatre Core & Studio scripts via CDN.\n2. Bind Theatre sheet properties to WebGL mesh properties.\n3. Deliver single-file index.html application."
     };
 
     function copyToClipboard(text) {
       navigator.clipboard.writeText(text);
       incrementVersion();
-      alert(`Prompt copied to clipboard! Version updated to v${major}.${minor}.${patch}`);
     }
 
     function switchTab(tab) {
       ['starter-projects', 'greenfield', 'brownfield', 'stack-templates', 'motion-templates', 'library'].forEach(t => {
         document.getElementById(`view-${t}`).classList.add('hidden');
         const btn = document.getElementById(`tab-${t}`);
-        btn.className = "px-3 py-1.5 rounded-md text-xs font-medium transition-all text-zinc-400 hover:text-zinc-200";
+        btn.className = "px-3 py-1.5 rounded-lg text-xs font-medium transition-all duration-200 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-900/50";
       });
       document.getElementById(`view-${tab}`).classList.remove('hidden');
-      document.getElementById(`tab-${tab}`).className = "px-3 py-1.5 rounded-md text-xs font-medium transition-all bg-emerald-500 text-zinc-950 font-semibold shadow";
+      document.getElementById(`tab-${tab}`).className = "px-3 py-1.5 rounded-lg text-xs font-semibold transition-all duration-200 bg-emerald-500 text-zinc-950 shadow-lg glow-emerald";
     }
 
     function renderStarters() {
       const grid = document.getElementById('starter-projects-grid');
-      const keys = Object.keys(STARTERS);
-      grid.innerHTML = keys.map(k => {
+      grid.innerHTML = Object.keys(STARTERS).map(k => {
         const item = STARTERS[k];
         return `
-          <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-5 flex flex-col justify-between space-y-4 hover:border-zinc-700 transition-all">
-            <div class="space-y-3">
-              <div class="flex justify-between items-start">
-                <span class="text-xs font-mono px-2 py-0.5 rounded bg-emerald-950 text-emerald-400 border border-emerald-800">${item.type}</span>
-                <span class="text-xs text-zinc-500 font-mono">${item.stack}</span>
+          <div class="glass-card rounded-xl p-5 flex flex-col justify-between space-y-4">
+            <div class="space-y-2.5">
+              <div class="flex justify-between items-center">
+                <span class="text-[10px] font-mono px-2 py-0.5 rounded-md bg-emerald-950/80 text-emerald-400 border border-emerald-800/50">${item.type}</span>
+                <span class="text-[10px] text-zinc-500 font-mono">${item.stack}</span>
               </div>
-              <h3 class="font-bold text-zinc-100 text-base">${item.title}</h3>
+              <h3 class="font-bold text-zinc-100 text-sm tracking-tight">${item.title}</h3>
               <p class="text-xs text-zinc-400 leading-relaxed">${item.desc}</p>
             </div>
-            <button onclick="copyToClipboard(STARTERS['${k}'].prompt)" class="w-full py-2 bg-emerald-500 hover:bg-emerald-400 text-zinc-950 font-semibold text-xs rounded-lg transition-all font-mono">Copy Blueprint Prompt</button>
+            <button onclick="copyToClipboard(STARTERS['${k}'].prompt)" class="w-full py-2 bg-emerald-500 hover:bg-emerald-400 text-zinc-950 font-semibold text-xs rounded-lg transition-all font-mono shadow glow-emerald flex items-center justify-center space-x-1.5">
+              <span>📋</span> <span>Copy Prompt</span>
+            </button>
           </div>
         `;
       }).join('');
@@ -413,7 +337,9 @@ RULES:
     function selectGStep(step) {
       [1, 2, 3].forEach(s => {
         const btn = document.getElementById(`gstep-btn-${s}`);
-        btn.className = s === step ? "text-left p-4 rounded-lg border border-emerald-500/50 bg-emerald-950/20 transition-all" : "text-left p-4 rounded-lg border border-zinc-800 bg-zinc-950/40 opacity-70 hover:opacity-100 transition-all";
+        btn.className = s === step 
+          ? "text-left p-4 rounded-xl border border-emerald-500/40 bg-emerald-950/20 transition-all" 
+          : "text-left p-4 rounded-xl border border-zinc-800 bg-zinc-950/40 opacity-70 hover:opacity-100 transition-all";
       });
       renderGStep(step);
     }
@@ -423,32 +349,34 @@ RULES:
       if (step === 1) {
         container.innerHTML = `
           <div class="lg:col-span-7 space-y-4">
-            <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-5 space-y-4">
+            <div class="glass-panel border border-zinc-800/80 rounded-xl p-5 space-y-3">
               <div class="flex justify-between items-center">
-                <h3 class="font-bold text-emerald-400 text-sm tracking-wide uppercase font-mono">1. Interactive Brainstorming Prompt</h3>
-                <button onclick="copyToClipboard(PROMPTS.g1_1)" class="text-xs bg-zinc-800 hover:bg-zinc-700 px-3 py-1 rounded border border-zinc-700 text-zinc-200 font-mono">Copy Prompt</button>
+                <h3 class="font-bold text-emerald-400 text-xs tracking-wider uppercase font-mono">1. Brainstorming Prompt</h3>
+                <button onclick="copyToClipboard(PROMPTS.g1_1)" class="text-xs bg-zinc-800 hover:bg-zinc-700 px-3 py-1 rounded-lg border border-zinc-700 text-zinc-200 font-mono">Copy Prompt</button>
               </div>
-              <pre class="bg-zinc-950 p-4 rounded-lg text-xs text-zinc-300 border border-zinc-850 whitespace-pre-wrap">${PROMPTS.g1_1}</pre>
+              <pre class="bg-zinc-950/80 p-4 rounded-lg text-xs text-zinc-300 border border-zinc-850 whitespace-pre-wrap font-mono">${PROMPTS.g1_1}</pre>
             </div>
           </div>
           <div class="lg:col-span-5 space-y-4">
-            <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-5">
-              <h3 class="font-bold text-zinc-200 text-sm mb-3">Evaluation Rubric</h3>
-              <ul class="space-y-3 text-xs text-zinc-300">
-                <li class="flex items-start space-x-2"><span class="text-emerald-400 font-bold">✓</span><span>Single Question Enforced</span></li>
-                <li class="flex items-start space-x-2"><span class="text-emerald-400 font-bold">✓</span><span>Saves to spec.md</span></li>
+            <div class="glass-panel border border-zinc-800/80 rounded-xl p-5">
+              <h3 class="font-bold text-zinc-200 text-xs uppercase font-mono mb-3">Evaluation Rubric</h3>
+              <ul class="space-y-2 text-xs text-zinc-400">
+                <li class="flex items-center space-x-2"><span class="text-emerald-400">✓</span><span>Enforces one question per response</span></li>
+                <li class="flex items-center space-x-2"><span class="text-emerald-400">✓</span><span>Generates target spec.md</span></li>
               </ul>
             </div>
           </div>`;
       } else {
-        container.innerHTML = `<div class="lg:col-span-12 bg-zinc-900 border border-zinc-800 rounded-xl p-5"><pre class="text-xs text-zinc-300 font-mono whitespace-pre-wrap">${PROMPTS.g2_tdd}</pre></div>`;
+        container.innerHTML = `<div class="lg:col-span-12 glass-panel border border-zinc-800/80 rounded-xl p-5"><pre class="text-xs text-zinc-300 font-mono whitespace-pre-wrap">${PROMPTS.g2_tdd}</pre></div>`;
       }
     }
 
     function selectBStep(step) {
       [1, 2, 3, 4].forEach(s => {
         const btn = document.getElementById(`bstep-btn-${s}`);
-        btn.className = s === step ? "text-left p-4 rounded-lg border border-emerald-500/50 bg-emerald-950/20 transition-all" : "text-left p-4 rounded-lg border border-zinc-800 bg-zinc-950/40 opacity-70 hover:opacity-100 transition-all";
+        btn.className = s === step 
+          ? "text-left p-4 rounded-xl border border-emerald-500/40 bg-emerald-950/20 transition-all" 
+          : "text-left p-4 rounded-xl border border-zinc-800 bg-zinc-950/40 opacity-70 hover:opacity-100 transition-all";
       });
       renderBStep(step);
     }
@@ -456,7 +384,7 @@ RULES:
     function renderBStep(step) {
       const container = document.getElementById('bstep-content');
       const keys = ['b_review', 'b_review', 'b_issues', 'b_tests'];
-      container.innerHTML = `<div class="lg:col-span-12 bg-zinc-900 border border-zinc-800 rounded-xl p-5"><pre class="text-xs text-zinc-300 font-mono whitespace-pre-wrap">${PROMPTS[keys[step-1]]}</pre></div>`;
+      container.innerHTML = `<div class="lg:col-span-12 glass-panel border border-zinc-800/80 rounded-xl p-5"><pre class="text-xs text-zinc-300 font-mono whitespace-pre-wrap">${PROMPTS[keys[step-1]]}</pre></div>`;
     }
 
     function renderStackTemplates() {
@@ -469,15 +397,15 @@ RULES:
       ];
 
       grid.innerHTML = templates.map(t => `
-        <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-5 space-y-4">
+        <div class="glass-card rounded-xl p-5 space-y-3">
           <div class="flex justify-between items-center">
             <div>
-              <h3 class="font-bold text-zinc-100 text-sm">${t.title}</h3>
-              <span class="text-xs text-emerald-400 font-mono">${t.tag}</span>
+              <h3 class="font-bold text-zinc-100 text-xs">${t.title}</h3>
+              <span class="text-[10px] text-emerald-400 font-mono">${t.tag}</span>
             </div>
-            <button onclick="copyToClipboard(PROMPTS.${t.key})" class="text-xs bg-zinc-800 hover:bg-zinc-700 px-3 py-1.5 rounded border border-zinc-700 text-zinc-200 font-mono">Copy</button>
+            <button onclick="copyToClipboard(PROMPTS.${t.key})" class="text-xs bg-zinc-800 hover:bg-zinc-700 px-3 py-1 rounded-lg border border-zinc-700 text-zinc-200 font-mono">Copy</button>
           </div>
-          <pre class="bg-zinc-950 p-4 rounded-lg text-xs text-zinc-300 border border-zinc-850 whitespace-pre-wrap font-mono max-h-48 overflow-y-auto">${PROMPTS[t.key]}</pre>
+          <pre class="bg-zinc-950/80 p-3.5 rounded-lg text-xs text-zinc-300 border border-zinc-850 whitespace-pre-wrap font-mono max-h-48 overflow-y-auto">${PROMPTS[t.key]}</pre>
         </div>
       `).join('');
     }
@@ -492,34 +420,33 @@ RULES:
       ];
 
       grid.innerHTML = templates.map(t => `
-        <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-5 space-y-4">
+        <div class="glass-card rounded-xl p-5 space-y-3">
           <div class="flex justify-between items-center">
             <div>
-              <h3 class="font-bold text-zinc-100 text-sm">${t.title}</h3>
-              <span class="text-xs text-emerald-400 font-mono">${t.tag}</span>
+              <h3 class="font-bold text-zinc-100 text-xs">${t.title}</h3>
+              <span class="text-[10px] text-emerald-400 font-mono">${t.tag}</span>
             </div>
-            <button onclick="copyToClipboard(PROMPTS.${t.key})" class="text-xs bg-zinc-800 hover:bg-zinc-700 px-3 py-1.5 rounded border border-zinc-700 text-zinc-200 font-mono">Copy Prompt</button>
+            <button onclick="copyToClipboard(PROMPTS.${t.key})" class="text-xs bg-zinc-800 hover:bg-zinc-700 px-3 py-1 rounded-lg border border-zinc-700 text-zinc-200 font-mono">Copy Prompt</button>
           </div>
-          <pre class="bg-zinc-950 p-4 rounded-lg text-xs text-zinc-300 border border-zinc-850 whitespace-pre-wrap font-mono max-h-52 overflow-y-auto">${PROMPTS[t.key]}</pre>
+          <pre class="bg-zinc-950/80 p-3.5 rounded-lg text-xs text-zinc-300 border border-zinc-850 whitespace-pre-wrap font-mono max-h-48 overflow-y-auto">${PROMPTS[t.key]}</pre>
         </div>
       `).join('');
     }
 
     function renderVault() {
       const list = document.getElementById('vault-list');
-      const keys = Object.keys(PROMPTS);
-      list.innerHTML = keys.map(k => `
-        <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-5 space-y-3">
+      list.innerHTML = Object.keys(PROMPTS).map(k => `
+        <div class="glass-card rounded-xl p-4 space-y-2">
           <div class="flex justify-between items-center">
-            <h3 class="font-bold text-zinc-100 text-sm font-mono">${k}</h3>
-            <button onclick="copyToClipboard(PROMPTS.${k})" class="text-xs bg-zinc-800 hover:bg-zinc-700 px-3 py-1.5 rounded border border-zinc-700 text-zinc-200 font-mono">Copy</button>
+            <h3 class="font-bold text-zinc-100 text-xs font-mono text-emerald-400">${k}</h3>
+            <button onclick="copyToClipboard(PROMPTS.${k})" class="text-xs bg-zinc-800 hover:bg-zinc-700 px-3 py-1 rounded-lg border border-zinc-700 text-zinc-200 font-mono">Copy</button>
           </div>
-          <pre class="bg-zinc-950 p-4 rounded-lg text-xs text-zinc-300 border border-zinc-850 whitespace-pre-wrap font-mono">${PROMPTS[k]}</pre>
+          <pre class="bg-zinc-950/80 p-3 rounded-lg text-xs text-zinc-300 border border-zinc-850 whitespace-pre-wrap font-mono">${PROMPTS[k]}</pre>
         </div>
       `).join('');
     }
 
-    // Initialize All Views
+    // Init All Views
     renderStarters();
     renderGStep(1);
     renderBStep(1);
