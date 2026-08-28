@@ -113,54 +113,10 @@
     <section id="view-stack-templates" class="hidden space-y-6">
       <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-6">
         <h1 class="text-xl font-bold text-zinc-100 mb-2">Custom Tech Stack System Prompts</h1>
-        <p class="text-sm text-zinc-400">Pre-configured operational prompts strictly constrained to single-file client implementations, Cloudflare Workers, and Supabase integration.</p>
+        <p class="text-sm text-zinc-400">Pre-configured operational prompts strictly constrained to single-file client implementations, edge platforms, and animation engines.</p>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-5 space-y-4">
-          <div class="flex justify-between items-center">
-            <div>
-              <h3 class="font-bold text-zinc-100 text-sm">Vanilla Single-File HTML/CSS/JS</h3>
-              <span class="text-xs text-emerald-400 font-mono">Frontend / iPad Native</span>
-            </div>
-            <button onclick="copyToClipboard(PROMPTS.tmpl_vanilla)" class="text-xs bg-zinc-800 hover:bg-zinc-700 px-3 py-1.5 rounded border border-zinc-700 text-zinc-200 font-mono">Copy</button>
-          </div>
-          <pre class="bg-zinc-950 p-4 rounded-lg text-xs text-zinc-300 border border-zinc-850 whitespace-pre-wrap font-mono">${PROMPTS.tmpl_vanilla}</pre>
-        </div>
-
-        <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-5 space-y-4">
-          <div class="flex justify-between items-center">
-            <div>
-              <h3 class="font-bold text-zinc-100 text-sm">Cloudflare Workers Edge API</h3>
-              <span class="text-xs text-emerald-400 font-mono">Backend Compute</span>
-            </div>
-            <button onclick="copyToClipboard(PROMPTS.tmpl_worker)" class="text-xs bg-zinc-800 hover:bg-zinc-700 px-3 py-1.5 rounded border border-zinc-700 text-zinc-200 font-mono">Copy</button>
-          </div>
-          <pre class="bg-zinc-950 p-4 rounded-lg text-xs text-zinc-300 border border-zinc-850 whitespace-pre-wrap font-mono">${PROMPTS.tmpl_worker}</pre>
-        </div>
-
-        <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-5 space-y-4">
-          <div class="flex justify-between items-center">
-            <div>
-              <h3 class="font-bold text-zinc-100 text-sm">Supabase CDN Client Architecture</h3>
-              <span class="text-xs text-emerald-400 font-mono">Auth & Persistence</span>
-            </div>
-            <button onclick="copyToClipboard(PROMPTS.tmpl_supabase)" class="text-xs bg-zinc-800 hover:bg-zinc-700 px-3 py-1.5 rounded border border-zinc-700 text-zinc-200 font-mono">Copy</button>
-          </div>
-          <pre class="bg-zinc-950 p-4 rounded-lg text-xs text-zinc-300 border border-zinc-850 whitespace-pre-wrap font-mono">${PROMPTS.tmpl_supabase}</pre>
-        </div>
-
-        <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-5 space-y-4">
-          <div class="flex justify-between items-center">
-            <div>
-              <h3 class="font-bold text-zinc-100 text-sm">Direct REST Gemini Free API</h3>
-              <span class="text-xs text-emerald-400 font-mono">In-Browser AI Integration</span>
-            </div>
-            <button onclick="copyToClipboard(PROMPTS.tmpl_gemini)" class="text-xs bg-zinc-800 hover:bg-zinc-700 px-3 py-1.5 rounded border border-zinc-700 text-zinc-200 font-mono">Copy</button>
-          </div>
-          <pre class="bg-zinc-950 p-4 rounded-lg text-xs text-zinc-300 border border-zinc-850 whitespace-pre-wrap font-mono">${PROMPTS.tmpl_gemini}</pre>
-        </div>
-      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="stack-templates-grid"></div>
     </section>
 
     <section id="view-starter-projects" class="hidden space-y-6">
@@ -212,7 +168,7 @@
       <div class="flex justify-between items-center">
         <div>
           <h1 class="text-xl font-bold text-zinc-100">Master Prompt Vault</h1>
-          <p class="text-sm text-zinc-400">All workflow core prompts and operational instructions.</p>
+          <p class="text-sm text-zinc-400">All workflow core prompts, operational templates, and library guides.</p>
         </div>
       </div>
       <div id="vault-list" class="space-y-6"></div>
@@ -259,7 +215,7 @@
           <span class="bg-emerald-500 text-zinc-950 font-mono font-bold px-2 py-0.5 rounded text-xs">04</span>
           <div>
             <strong class="text-zinc-100 block text-sm mb-1">Apply Stack System Constraints</strong>
-            Before invoking code generation, attach a system template from the <strong>Stack Templates</strong> tab to lock the model into zero-dependency, single-file, or edge rules.
+            Before invoking code generation, attach a system template from the <strong>Stack Templates</strong> tab to lock the model into zero-dependency, single-file, edge, or animation rules.
           </div>
         </div>
 
@@ -360,7 +316,31 @@ RULES:
 1. Execute text generation via standard browser fetch calls directly to:
    https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=\${API_KEY}
 2. Use raw fetch POST request with JSON payload body { contents: [{ parts: [{ text: prompt }] }] }.
-3. Handle rate limits (429 HTTP status) with exponential backoff.`
+3. Handle rate limits (429 HTTP status) with exponential backoff.`,
+
+      tmpl_gsap: `You are an expert UI developer specializing in high-performance GSAP 3 animations.
+RULES:
+1. Load GSAP via CDN script: https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js and ScrollTrigger: https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js
+2. Use timeline sequencing (gsap.timeline()) for state transitions and interactive controls (play, reverse, pause).
+3. Ensure hardware acceleration properties are prioritized (x, y, scale, rotation, opacity).`,
+
+      tmpl_three: `You are an expert WebGL developer specializing in single-file Three.js interactive 3D scenes.
+RULES:
+1. Load Three.js via CDN: https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js and GSAP for tweening.
+2. Maintain clean WebGL render loops, responsive camera aspect updates, ambient/directional lighting, and mouse raycasting interaction.
+3. Single file architecture without npm or bundlers.`,
+
+      tmpl_anime: `You are an expert interactive developer specializing in micro-interactions using Anime.js.
+RULES:
+1. Load Anime.js via CDN script tag: https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js
+2. Prioritize keyframe arrays, staggered grid animations (anime.stagger()), and responsive easing curves.
+3. Deliver complete, single-file HTML code blocks.`,
+
+      tmpl_theatre: `You are an expert 3D motion director specializing in Theatre.js timeline choreography with Three.js.
+RULES:
+1. Import Theatre Core & Studio scripts via CDN: https://cdn.jsdelivr.net/npm/@theatre/core@0.5.1/dist/index.umd.js and https://cdn.jsdelivr.net/npm/@theatre/studio@0.5.1/dist/index.umd.js
+2. Initialize Studio (Theatre.Studio.initialize()) and map sheet object props to Three.js mesh transformations.
+3. Deliver in a single-file index.html deployment format.`
     };
 
     function copyToClipboard(text) {
@@ -487,6 +467,33 @@ RULES:
       }
     }
 
+    function renderStackTemplates() {
+      const grid = document.getElementById('stack-templates-grid');
+      const templates = [
+        { title: 'Vanilla Single-File HTML/CSS/JS', tag: 'Frontend / iPad Native', key: 'tmpl_vanilla' },
+        { title: 'Cloudflare Workers Edge API', tag: 'Backend Compute', key: 'tmpl_worker' },
+        { title: 'Supabase CDN Client Architecture', tag: 'Auth & Persistence', key: 'tmpl_supabase' },
+        { title: 'Direct REST Gemini Free API', tag: 'In-Browser AI Integration', key: 'tmpl_gemini' },
+        { title: 'GSAP 3 Timeline & ScrollTrigger', tag: 'Animation Engine', key: 'tmpl_gsap' },
+        { title: 'Three.js Interactive 3D Canvas', tag: 'WebGL / 3D Scene', key: 'tmpl_three' },
+        { title: 'Anime.js Micro-Interactions', tag: 'Micro-Animations', key: 'tmpl_anime' },
+        { title: 'Theatre.js + Three.js Motion Studio', tag: 'Keyframe Choreography', key: 'tmpl_theatre' }
+      ];
+
+      grid.innerHTML = templates.map(t => `
+        <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-5 space-y-4">
+          <div class="flex justify-between items-center">
+            <div>
+              <h3 class="font-bold text-zinc-100 text-sm">${t.title}</h3>
+              <span class="text-xs text-emerald-400 font-mono">${t.tag}</span>
+            </div>
+            <button onclick="copyToClipboard(PROMPTS.${t.key})" class="text-xs bg-zinc-800 hover:bg-zinc-700 px-3 py-1.5 rounded border border-zinc-700 text-zinc-200 font-mono">Copy</button>
+          </div>
+          <pre class="bg-zinc-950 p-4 rounded-lg text-xs text-zinc-300 border border-zinc-850 whitespace-pre-wrap font-mono max-h-48 overflow-y-auto">${PROMPTS[t.key]}</pre>
+        </div>
+      `).join('');
+    }
+
     function renderVault() {
       const list = document.getElementById('vault-list');
       const items = [
@@ -495,7 +502,15 @@ RULES:
         { title: 'Greenfield Step 2: Prompt Plan (TDD)', key: 'g2_tdd' },
         { title: 'Brownfield: Code Review', key: 'b_review' },
         { title: 'Brownfield: GitHub Issues', key: 'b_issues' },
-        { title: 'Brownfield: Missing Tests', key: 'b_tests' }
+        { title: 'Brownfield: Missing Tests', key: 'b_tests' },
+        { title: 'Stack System: Vanilla Single-File', key: 'tmpl_vanilla' },
+        { title: 'Stack System: Cloudflare Worker', key: 'tmpl_worker' },
+        { title: 'Stack System: Supabase CDN', key: 'tmpl_supabase' },
+        { title: 'Stack System: Gemini REST API', key: 'tmpl_gemini' },
+        { title: 'Stack System: GSAP 3 UI Animations', key: 'tmpl_gsap' },
+        { title: 'Stack System: Three.js Interactive WebGL', key: 'tmpl_three' },
+        { title: 'Stack System: Anime.js Stagger Engine', key: 'tmpl_anime' },
+        { title: 'Stack System: Theatre.js Motion Director', key: 'tmpl_theatre' }
       ];
 
       list.innerHTML = items.map(item => `
@@ -512,6 +527,7 @@ RULES:
     // Init
     renderGStep(1);
     renderBStep(1);
+    renderStackTemplates();
     renderVault();
   </script>
 </body>
