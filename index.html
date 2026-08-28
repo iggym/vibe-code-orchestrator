@@ -35,20 +35,28 @@
         </span>
         <span id="version-badge" class="text-xs px-2 py-0.5 rounded bg-zinc-800 text-emerald-400 border border-zinc-700 font-mono transition-all">v1.0.0</span>
       </div>
-      <nav class="flex space-x-1 bg-zinc-950 p-1 rounded-lg border border-zinc-800" id="nav-tabs">
-        <button onclick="switchTab('greenfield')" id="tab-greenfield" class="px-4 py-1.5 rounded-md text-xs font-medium transition-all bg-emerald-500 text-zinc-950 font-semibold shadow">
-          Greenfield Pipeline
+      <div class="flex items-center space-x-3">
+        <button onclick="toggleModal('modal-howto')" class="text-xs px-3 py-1.5 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-zinc-200 border border-zinc-700 font-medium transition-all flex items-center space-x-1.5">
+          <span>📖</span> <span>How-To Guide</span>
         </button>
-        <button onclick="switchTab('brownfield')" id="tab-brownfield" class="px-4 py-1.5 rounded-md text-xs font-medium transition-all text-zinc-400 hover:text-zinc-200">
-          Brownfield Pipeline
-        </button>
-        <button onclick="switchTab('stack-templates')" id="tab-stack-templates" class="px-4 py-1.5 rounded-md text-xs font-medium transition-all text-zinc-400 hover:text-zinc-200">
-          Stack Templates
-        </button>
-        <button onclick="switchTab('library')" id="tab-library" class="px-4 py-1.5 rounded-md text-xs font-medium transition-all text-zinc-400 hover:text-zinc-200">
-          Prompt Vault
-        </button>
-      </nav>
+        <nav class="flex space-x-1 bg-zinc-950 p-1 rounded-lg border border-zinc-800" id="nav-tabs">
+          <button onclick="switchTab('greenfield')" id="tab-greenfield" class="px-4 py-1.5 rounded-md text-xs font-medium transition-all bg-emerald-500 text-zinc-950 font-semibold shadow">
+            Greenfield Pipeline
+          </button>
+          <button onclick="switchTab('brownfield')" id="tab-brownfield" class="px-4 py-1.5 rounded-md text-xs font-medium transition-all text-zinc-400 hover:text-zinc-200">
+            Brownfield Pipeline
+          </button>
+          <button onclick="switchTab('stack-templates')" id="tab-stack-templates" class="px-4 py-1.5 rounded-md text-xs font-medium transition-all text-zinc-400 hover:text-zinc-200">
+            Stack Templates
+          </button>
+          <button onclick="switchTab('starter-projects')" id="tab-starter-projects" class="px-4 py-1.5 rounded-md text-xs font-medium transition-all text-zinc-400 hover:text-zinc-200">
+            Starter Projects
+          </button>
+          <button onclick="switchTab('library')" id="tab-library" class="px-4 py-1.5 rounded-md text-xs font-medium transition-all text-zinc-400 hover:text-zinc-200">
+            Prompt Vault
+          </button>
+        </nav>
+      </div>
     </div>
   </header>
 
@@ -155,6 +163,51 @@
       </div>
     </section>
 
+    <section id="view-starter-projects" class="hidden space-y-6">
+      <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-6">
+        <h1 class="text-xl font-bold text-zinc-100 mb-2">Starter Project Blueprints</h1>
+        <p class="text-sm text-zinc-400">Useful, production-ready project specs structured specifically for one-shot LLM orchestration.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-5 flex flex-col justify-between space-y-4">
+          <div class="space-y-3">
+            <div class="flex justify-between items-start">
+              <span class="text-xs font-mono px-2 py-0.5 rounded bg-emerald-950 text-emerald-400 border border-emerald-800">Utility</span>
+              <span class="text-xs text-zinc-500 font-mono">Single-File</span>
+            </div>
+            <h3 class="font-bold text-zinc-100 text-base">Markdown Executive Dashboard</h3>
+            <p class="text-xs text-zinc-400 leading-relaxed">Client-side app parsing local markdown files to auto-render interactive metrics, data charts, and kanban boards completely offline.</p>
+          </div>
+          <button onclick="copyToClipboard(STARTERS.p1)" class="w-full py-2 bg-emerald-500 hover:bg-emerald-400 text-zinc-950 font-semibold text-xs rounded-lg transition-all font-mono">Copy Blueprint Prompt</button>
+        </div>
+
+        <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-5 flex flex-col justify-between space-y-4">
+          <div class="space-y-3">
+            <div class="flex justify-between items-start">
+              <span class="text-xs font-mono px-2 py-0.5 rounded bg-emerald-950 text-emerald-400 border border-emerald-800">AI / Serverless</span>
+              <span class="text-xs text-zinc-500 font-mono">Worker + Gemini</span>
+            </div>
+            <h3 class="font-bold text-zinc-100 text-base">Zero-Cost Image Metadata Extractor</h3>
+            <p class="text-xs text-zinc-400 leading-relaxed">Cloudflare Worker that takes uploaded images, passes them directly to Gemini 1.5 Flash REST API, and outputs structured JSON tags.</p>
+          </div>
+          <button onclick="copyToClipboard(STARTERS.p2)" class="w-full py-2 bg-emerald-500 hover:bg-emerald-400 text-zinc-950 font-semibold text-xs rounded-lg transition-all font-mono">Copy Blueprint Prompt</button>
+        </div>
+
+        <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-5 flex flex-col justify-between space-y-4">
+          <div class="space-y-3">
+            <div class="flex justify-between items-start">
+              <span class="text-xs font-mono px-2 py-0.5 rounded bg-emerald-950 text-emerald-400 border border-emerald-800">Full-Stack Edge</span>
+              <span class="text-xs text-zinc-500 font-mono">Supabase CDN</span>
+            </div>
+            <h3 class="font-bold text-zinc-100 text-base">Micro-SaaS Analytics Beacon</h3>
+            <p class="text-xs text-zinc-400 leading-relaxed">Single-file JS tracking script and companion dashboard communicating with Supabase RLS tables for real-time page metrics.</p>
+          </div>
+          <button onclick="copyToClipboard(STARTERS.p3)" class="w-full py-2 bg-emerald-500 hover:bg-emerald-400 text-zinc-950 font-semibold text-xs rounded-lg transition-all font-mono">Copy Blueprint Prompt</button>
+        </div>
+      </div>
+    </section>
+
     <section id="view-library" class="hidden space-y-6">
       <div class="flex justify-between items-center">
         <div>
@@ -166,6 +219,64 @@
     </section>
 
   </main>
+
+  <div id="modal-howto" class="fixed inset-0 bg-zinc-950/80 backdrop-blur-sm z-50 flex items-center justify-center hidden p-4">
+    <div class="bg-zinc-900 border border-zinc-800 rounded-2xl max-w-2xl w-full p-6 space-y-6 shadow-2xl overflow-y-auto max-h-[90vh]">
+      <div class="flex justify-between items-center border-b border-zinc-800 pb-4">
+        <div class="flex items-center space-x-2">
+          <span class="text-emerald-400 text-lg">🚀</span>
+          <h2 class="text-lg font-bold text-zinc-100">Vibe Coding Step-by-Step Guide</h2>
+        </div>
+        <button onclick="toggleModal('modal-howto')" class="text-zinc-400 hover:text-zinc-100 text-sm font-mono p-1">✕</button>
+      </div>
+
+      <div class="space-y-4 text-xs text-zinc-300 leading-relaxed">
+        <div class="flex items-start space-x-3 bg-zinc-950 p-3.5 rounded-lg border border-zinc-850">
+          <span class="bg-emerald-500 text-zinc-950 font-mono font-bold px-2 py-0.5 rounded text-xs">01</span>
+          <div>
+            <strong class="text-zinc-100 block text-sm mb-1">Pick a Workflow</strong>
+            Choose <strong>Greenfield</strong> for starting new applications from scratch, or <strong>Brownfield</strong> for auditing/fixing existing codebases.
+          </div>
+        </div>
+
+        <div class="flex items-start space-x-3 bg-zinc-950 p-3.5 rounded-lg border border-zinc-850">
+          <span class="bg-emerald-500 text-zinc-950 font-mono font-bold px-2 py-0.5 rounded text-xs">02</span>
+          <div>
+            <strong class="text-zinc-100 block text-sm mb-1">Run Interactive Brainstorming</strong>
+            Copy Step 01 Greenfield prompt into your LLM chat (e.g. Gemini/Claude). Answer its questions one by one until it produces a complete <code>spec.md</code>.
+          </div>
+        </div>
+
+        <div class="flex items-start space-x-3 bg-zinc-950 p-3.5 rounded-lg border border-zinc-850">
+          <span class="bg-emerald-500 text-zinc-950 font-mono font-bold px-2 py-0.5 rounded text-xs">03</span>
+          <div>
+            <strong class="text-zinc-100 block text-sm mb-1">Generate TDD Execution Blueprint</strong>
+            Feed <code>spec.md</code> into a reasoning model (o1, R1, Groq) using the Step 02 prompt. It outputs a <code>prompt_plan.md</code> and <code>todo.md</code>.
+          </div>
+        </div>
+
+        <div class="flex items-start space-x-3 bg-zinc-950 p-3.5 rounded-lg border border-zinc-850">
+          <span class="bg-emerald-500 text-zinc-950 font-mono font-bold px-2 py-0.5 rounded text-xs">04</span>
+          <div>
+            <strong class="text-zinc-100 block text-sm mb-1">Apply Stack System Constraints</strong>
+            Before invoking code generation, attach a system template from the <strong>Stack Templates</strong> tab to lock the model into zero-dependency, single-file, or edge rules.
+          </div>
+        </div>
+
+        <div class="flex items-start space-x-3 bg-zinc-950 p-3.5 rounded-lg border border-zinc-850">
+          <span class="bg-emerald-500 text-zinc-950 font-mono font-bold px-2 py-0.5 rounded text-xs">05</span>
+          <div>
+            <strong class="text-zinc-100 block text-sm mb-1">Iterate & Deploy Directly</strong>
+            Execute prompts step-by-step. Open <code>index.html</code> directly in your browser or deploy directly to GitHub Pages / Cloudflare Workers!
+          </div>
+        </div>
+      </div>
+
+      <div class="pt-2 border-t border-zinc-800 flex justify-end">
+        <button onclick="toggleModal('modal-howto')" class="px-4 py-2 bg-emerald-500 text-zinc-950 font-semibold text-xs rounded-lg hover:bg-emerald-400 transition-all font-mono">Got It</button>
+      </div>
+    </div>
+  </div>
 
   <script>
     // Version State & Generation Counter
@@ -183,6 +294,32 @@
         badge.classList.remove('bg-emerald-400', 'text-zinc-950');
       }, 300);
     }
+
+    function toggleModal(id) {
+      const modal = document.getElementById(id);
+      modal.classList.toggle('hidden');
+    }
+
+    const STARTERS = {
+      p1: `Create a single-file Markdown Executive Dashboard using vanilla HTML, CSS, and JS with zero dependencies.
+RULES:
+1. Provide a drop zone for uploading or pasting markdown content.
+2. Automatically parse tables, task lists, and metric headers (# Key Performance Metrics).
+3. Render visual charts using native SVG/HTML progress meters and a interactive Kanban task board view.
+4. Provide dark mode by default and maintain zero npm build steps.`,
+
+      p2: `Create a Cloudflare Worker backend script that accepts multipart image uploads and extracts vision metadata using the Google Gemini REST API.
+RULES:
+1. Pure ES module format for Cloudflare Workers.
+2. Convert uploaded image payload to base64 and execute a direct REST call to gemini-1.5-flash.
+3. Handle rate limits with retry backoff and return clean JSON response containing tags, summary, and color analysis.`,
+
+      p3: `Create a single-file Web Analytics Beacon and Dashboard connected to Supabase via CDN script.
+RULES:
+1. Client tracker script (under 1KB) sending page view, referrer, and performance timing to Supabase via window.supabase client.
+2. Real-time dashboard interface rendering pageview trends and active session counts.
+3. Include SQL schema setup instructions for Supabase Row Level Security (RLS).`
+    };
 
     const PROMPTS = {
       g1_1: `Ask me one question at a time so we can develop a thorough, step-by-step spec for this idea. Each question should build on my previous answers, and our end goal is to have a detailed specification I can hand off to a developer. Let's do this iteratively and dig into every relevant detail. Remember, only one question at a time. Here's the idea: <IDEA>`,
@@ -233,7 +370,7 @@ RULES:
     }
 
     function switchTab(tab) {
-      ['greenfield', 'brownfield', 'stack-templates', 'library'].forEach(t => {
+      ['greenfield', 'brownfield', 'stack-templates', 'starter-projects', 'library'].forEach(t => {
         document.getElementById(`view-${t}`).classList.add('hidden');
         const btn = document.getElementById(`tab-${t}`);
         btn.className = "px-4 py-1.5 rounded-md text-xs font-medium transition-all text-zinc-400 hover:text-zinc-200";
